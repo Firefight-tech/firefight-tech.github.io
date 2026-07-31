@@ -203,6 +203,8 @@ class Component extends DCLogic {
         segs:[[0,'STAGING','fog'],[13,'ASCENT','ok'],[27,'VENT · F2','ok'],[58,'SEARCH · F3','ok'],[68,'RIT RESPONSE','warn'],[76,'WITH L3-A','warn']] }
     ];
     this.annots = [
+      { id:'a17', f:1, x:14.7, y:-7.2, t:0, type:'engine', short:'ENGINE 11', note:'Pump operating, supply line established. Side A.', by:'COMMAND' },
+      { id:'a18', f:1, x:2.7, y:-6.4, t:0, type:'ems', short:'MEDIC 4', note:'EMS staged for victim handoff, side A.', by:'COMMAND' },
       { id:'a1', f:1, x:4, y:0, t:4, type:'door', short:'DOOR OPEN', note:'Front entry, side A. Primary ingress.', by:'E11-A' },
       { id:'a2', f:1, x:0, y:5, t:13, type:'window', short:'WINDOW OPEN', note:'West wall. Possible ventilation point.', by:'E11-B' },
       { id:'a3', f:1, x:2.8, y:6, t:14, type:'blocked', short:'BLOCKED', note:'Collapsed shelving across passage. Crew rerouted.', by:'E11-B' },
@@ -246,7 +248,9 @@ class Component extends DCLogic {
       { f:2, x:9.5, y:1.5, w:1.7, d:2.2, h:0.5 }, { f:2, x:9.5, y:0.35, w:1.7, d:0.2, h:0.9 },
       { f:2, x:5.5, y:10.2, w:1.7, d:0.6, h:0.95 }, { f:2, x:15.8, y:9, w:1.5, d:0.7, h:0.75 },
       { f:3, x:13, y:2.6, w:0.8, d:0.8, h:0.8 }, { f:3, x:13.75, y:3.1, w:0.7, d:0.7, h:0.7 }, { f:3, x:13.1, y:2.7, w:0.6, d:0.6, h:0.6, zo:0.8 },
-      { f:3, x:5.5, y:8.5, w:1.6, d:0.8, h:0.8 }, { f:3, x:2.5, y:9.5, w:0.9, d:0.9, h:0.6 }
+      { f:3, x:5.5, y:8.5, w:1.6, d:0.8, h:0.8 }, { f:3, x:2.5, y:9.5, w:0.9, d:0.9, h:0.6 },
+      { f:1, x:12.4, y:-7.2, w:1.9, d:2.4, h:2.3, rt:0, rot:0.38, pvx:14.7, pvy:-7.2 }, { f:1, x:15.8, y:-7.2, w:4.8, d:2.4, h:2.9, rt:0, rot:0.38, pvx:14.7, pvy:-7.2 }, { f:1, x:15.6, y:-7.2, w:4.2, d:0.5, h:0.4, zo:2.9, rt:0, rot:0.38, pvx:14.7, pvy:-7.2 },
+      { f:1, x:1.6, y:-6.4, w:1.3, d:2.0, h:1.8, rt:0, rot:-0.52, pvx:2.7, pvy:-6.4 }, { f:1, x:3.8, y:-6.4, w:3.2, d:2.2, h:2.3, rt:0, rot:-0.52, pvx:2.7, pvy:-6.4 }
     ];
     this.doors = [
       { f:1, x:4, y:0, dir:'x', t:4 }, { f:1, x:7, y:5.5, dir:'y', t:16 }, { f:1, x:14, y:3, dir:'y', t:33 },
@@ -300,6 +304,15 @@ class Component extends DCLogic {
       }
     }
     const l = wp[wp.length-1]; return { x: l[1], y: l[2], f: l[3] };
+  }
+
+  annPos(a, t) {
+    if (a.id === 'a10' && t >= 50) {
+      if (t >= 84) return { x: 5.2, y: -2.2, f: 1 };
+      const p = this.pos(this.ffs[0], t);
+      return { x: p.x + 0.55, y: p.y + 0.45, f: p.f };
+    }
+    return { x: a.x, y: a.y, f: a.f };
   }
 
   o2Of(ff, t) {
@@ -364,7 +377,7 @@ class Component extends DCLogic {
     const cp = Math.cos(this.pitch), sp = Math.sin(this.pitch);
     // fit
     let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9;
-    for (const [x,y] of [[0,-3],[18,-3],[0,11],[18,11]]) for (const z of [0, 2*gap + wallH]) {
+    for (const [x,y] of [[0,-9.2],[18,-9.2],[0,11],[18,11]]) for (const z of [0, 2*gap + wallH]) {
       const [u,v] = this.projU(x,y,z,cy,sy,cp,sp);
       mnx=Math.min(mnx,u);mny=Math.min(mny,v);mxx=Math.max(mxx,u);mxy=Math.max(mxy,v);
     }
@@ -378,8 +391,8 @@ class Component extends DCLogic {
     if (light) { C.bone = '#4A4744'; C.fog = '#78746E'; }
     const chipBg = light ? 'rgba(255,253,248,0.95)' : 'rgba(19,19,19,0.92)';
     const dotCol = light ? '#17141F' : '#FFFFFF';
-    const aCol = { door:C.bone, window:C.fog, blocked:C.warn, clutter:C.warn, structural:C.alert, victim:C.alert, fire:C.signal };
-    const aGly = { door:'D', window:'W', blocked:'X', clutter:'C', structural:'S', victim:'V', fire:'F' };
+    const aCol = { door:C.bone, window:C.fog, blocked:C.warn, clutter:C.warn, structural:C.alert, victim:C.alert, fire:C.signal, engine:C.bone, ems:C.bone };
+    const aGly = { door:'D', window:'W', blocked:'X', clutter:'C', structural:'S', victim:'V', fire:'F', engine:'E', ems:'A' };
     const rrect = (x,y,w,h,r) => { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
 
     for (const f of [1,2,3]) {
@@ -451,9 +464,13 @@ class Component extends DCLogic {
         ctx.beginPath(); ctx.moveTo(...b1); ctx.lineTo(...b2); ctx.stroke();
       }
       // furniture meshes
-      const box = (cx, cy, w2, d2, h2, zo, k) => {
+      const box = (cx, cy, w2, d2, h2, zo, k, rot, pvx, pvy) => {
         const z0 = z + zo, z1 = z0 + h2;
-        const cs = [[cx-w2/2,cy-d2/2],[cx+w2/2,cy-d2/2],[cx+w2/2,cy+d2/2],[cx-w2/2,cy+d2/2]];
+        let cs = [[cx-w2/2,cy-d2/2],[cx+w2/2,cy-d2/2],[cx+w2/2,cy+d2/2],[cx-w2/2,cy+d2/2]];
+        if (rot) {
+          const cr = Math.cos(rot), sr = Math.sin(rot);
+          cs = cs.map(([x,y]) => [pvx + (x-pvx)*cr - (y-pvy)*sr, pvy + (x-pvx)*sr + (y-pvy)*cr]);
+        }
         const bot = cs.map(([x,y]) => P(x,y,z0)), top = cs.map(([x,y]) => P(x,y,z1));
         ctx.beginPath(); ctx.moveTo(...bot[0]); for (let i=1;i<4;i++) ctx.lineTo(...bot[i]); ctx.closePath();
         ctx.strokeStyle = `rgba(${INK},${0.1*k*aF})`; ctx.lineWidth = 1; ctx.stroke();
@@ -467,7 +484,7 @@ class Component extends DCLogic {
         if (fu.f !== f) continue;
         if (fu.rt == null || fu.rt > t) continue;
         const k = Math.min(1, (t - fu.rt) / 1.5);
-        box(fu.x, fu.y, fu.w, fu.d, fu.h, fu.zo || 0, k);
+        box(fu.x, fu.y, fu.w, fu.d, fu.h, fu.zo || 0, k, fu.rot || 0, fu.pvx, fu.pvy);
       }
       // doors (swing arc + leaf)
       for (const dr of this.doors) {
@@ -515,15 +532,19 @@ class Component extends DCLogic {
       }
       // annotations
       for (const a of this.annots) {
-        if (a.f !== f || a.t > t) continue;
-        const col = aCol[a.type];
-        const base = P(a.x, a.y, z), head = P(a.x, a.y, z+1.35);
+        if (a.t > t) continue;
+        const ap = this.annPos(a, t);
+        if (Math.round(ap.f) !== f) continue;
+        const rescued = a.id === 'a10' && t >= 84;
+        const col = rescued ? C.ok : aCol[a.type];
+        const za = (ap.f - 1) * gap;
+        const base = P(ap.x, ap.y, za), head = P(ap.x, ap.y, za+1.35);
         const isSel = sel && sel.type==='a' && sel.id===a.id;
-        const fresh = t - a.t < 6;
+        const fresh = t - a.t < 6 || (rescued && t - 84 < 6);
         const ga = aF * (isSel ? 1 : 0.95);
         ctx.strokeStyle = `rgba(${INK},${0.25*aF})`; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(...base); ctx.lineTo(...head); ctx.stroke();
-        if ((a.type === 'victim' || a.type === 'fire' || (a.type === 'structural' && fresh)) && aF > 0.1) {
+        if ((( a.type === 'victim' && !rescued) || a.type === 'fire' || (a.type === 'structural' && fresh)) && aF > 0.1) {
           const pr = 9 + 3*Math.sin(now/180);
           ctx.globalAlpha = 0.55 * aF;
           ctx.strokeStyle = col; ctx.lineWidth = 1.5;
@@ -540,12 +561,13 @@ class Component extends DCLogic {
           const pop = Math.min(1, (t - a.t) / 0.4);
           ctx.globalAlpha = ga * pop;
           ctx.font = '700 9px Roboto Mono';
-          const tw = ctx.measureText(a.short).width;
+          const lbl = rescued ? 'RESCUED' : a.short;
+          const tw = ctx.measureText(lbl).width;
           const lx = head[0] + 12, ly = head[1] - 20;
           rrect(lx, ly, tw + 14, 17, 4);
           ctx.fillStyle = chipBg; ctx.fill();
           ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.stroke();
-          ctx.fillStyle = col; ctx.textAlign = 'left'; ctx.fillText(a.short, lx+7, ly+12);
+          ctx.fillStyle = col; ctx.textAlign = 'left'; ctx.fillText(lbl, lx+7, ly+12);
         }
         ctx.globalAlpha = 1;
         this.hits.push({ x: head[0], y: head[1], r: 13, type: 'a', id: a.id, f });
@@ -655,11 +677,13 @@ class Component extends DCLogic {
       } else {
         const a = this.annots.find(x => x.id === st.sel.id);
         if (a && a.t <= t) {
-          const aCol = { door: 'var(--c-bone)', window: 'var(--c-fog)', blocked: 'var(--c-warn)', clutter: 'var(--c-warn)', structural: 'var(--c-alert)', victim: 'var(--c-alert)', fire: 'var(--c-signal)' };
-          selShow = true; selTitle = a.short; selEyebrow = a.type.toUpperCase() + ' · ' + a.id.toUpperCase();
-          selColor = aCol[a.type];
+          const aCol = { door: 'var(--c-bone)', window: 'var(--c-fog)', blocked: 'var(--c-warn)', clutter: 'var(--c-warn)', structural: 'var(--c-alert)', victim: 'var(--c-alert)', fire: 'var(--c-signal)', engine: 'var(--c-bone)', ems: 'var(--c-bone)' };
+          const rescued = a.id === 'a10' && t >= 84;
+          const ap = this.annPos(a, t);
+          selShow = true; selTitle = rescued ? 'RESCUED' : a.short; selEyebrow = a.type.toUpperCase() + ' · ' + a.id.toUpperCase();
+          selColor = rescued ? 'var(--c-ok)' : aCol[a.type];
           selRows = [
-            { k: 'Floor', v: 'F' + a.f + ' · ' + (a.x < 9 ? 'WEST' : 'EAST'), c: 'var(--tx-2)' },
+            { k: 'Floor', v: ap.y < -0.5 ? 'EXTERIOR' : 'F' + Math.round(ap.f) + ' · ' + (ap.x < 9 ? 'WEST' : 'EAST'), c: 'var(--tx-2)' },
             { k: 'Detected', v: this.fmt(a.t), c: 'var(--tx-2)' },
             { k: 'Source', v: a.by + ' THERMAL', c: 'var(--tx-2)' }
           ];
