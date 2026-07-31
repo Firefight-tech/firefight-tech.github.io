@@ -1,0 +1,8 @@
+# Raw WordPress crawl output — source material only, cherry-pick into the site
+crawl/
+
+# Claude Design export — served from the tracked copy in prototype/
+Firefighter Command Tablet Prototype/
+
+__pycache__/
+.DS_Store

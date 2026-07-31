@@ -1,0 +1,149 @@
+/* Shared layout shell used by every design system preview card.
+   Each card is a fixed 1280×1600 dark canvas with consistent header. */
+
+.dsc-page {
+  font-family: var(--ff-sans);
+  background: var(--bg-page);
+  color: var(--tx-1);
+  width: 1280px;
+  min-height: 1600px;
+  margin: 0;
+  padding: 56px 64px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.dsc-page * { box-sizing: border-box; }
+
+/* Header */
+.dsc-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--bd-soft);
+}
+
+.dsc-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-fog);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.dsc-eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--c-signal);
+}
+
+.dsc-title {
+  font-family: var(--ff-display);
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 12px 0 0;
+}
+
+.dsc-sub {
+  font-family: var(--ff-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--c-fog);
+  max-width: 540px;
+  margin-top: 10px;
+}
+
+.dsc-meta {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-mist);
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Section */
+.dsc-section { display: flex; flex-direction: column; gap: 20px; }
+.dsc-section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px;
+  border-top: 1px dashed var(--bd-rule);
+  padding-top: 24px;
+}
+.dsc-section-title {
+  font-family: var(--ff-mono);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-bone);
+}
+.dsc-section-note {
+  font-family: var(--ff-sans);
+  font-size: 13px;
+  color: var(--c-mist);
+}
+
+/* Tile / panel — re-usable plate */
+.dsc-plate {
+  background: var(--bg-card);
+  border: 1px solid var(--bd-hair);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.dsc-plate--flush {
+  background: var(--bg-flush);
+  border: 1px solid var(--bd-soft);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.dsc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dsc-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.dsc-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.dsc-grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+
+/* Footer */
+.dsc-foot {
+  margin-top: auto;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tx-5);
+  padding-top: 24px;
+  border-top: 1px solid var(--bd-hair);
+}
+
+/* Firefight logo mark used in all card headers */
+.dsc-mark {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--ff-mono); font-size: 11px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-bone);
+}
+.dsc-mark svg { width: 84px; height: 17px; }
+
+/* Code-style label */
+.dsc-code {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--c-fog);
+}
+.dsc-code--strong { color: var(--c-bone); }

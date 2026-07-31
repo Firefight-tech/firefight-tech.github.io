@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/firefight-design-system-019ddfd6-c641-712b-b11e-5705f0b3b9dd/colors_and_type.css">
+  <link rel="stylesheet" href="_ds/firefight-design-system-019ddfd6-c641-712b-b11e-5705f0b3b9dd/styles.css">
+  <script src="_ds/firefight-design-system-019ddfd6-c641-712b-b11e-5705f0b3b9dd/_ds_bundle.js"></script>
+  <style>
+    html,body{margin:0;padding:0;background:#000;overflow:hidden}
+    *{box-sizing:border-box}
+    a{color:var(--c-signal);text-decoration:none} a:hover{color:var(--c-signal-hi)}
+    @keyframes faPulse{0%,100%{opacity:1}50%{opacity:0.35}}
+    #scrub{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:999px;outline:none;cursor:pointer}
+    #scrub::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--c-signal);box-shadow:0 1px 4px rgba(0,0,0,0.6)}
+    #scrub::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:2px solid var(--c-signal)}
+    #fa-theme-toggle{display:none !important}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.14);border-radius:3px}::-webkit-scrollbar-track{background:transparent}
+  </style>
+</helmet>
+<div style="width:100vw;height:100vh;min-width:1080px;min-height:700px;background:var(--c-void);color:var(--t-on-dark-1);font-family:var(--ff-sans);display:flex;flex-direction:column;user-select:none">
+
+  <div style="height:50px;flex:0 0 50px;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid var(--bd-soft);background:var(--c-void)">
+    <div style="display:flex;align-items:baseline;gap:10px">
+      <img src="assets/firefight-wordmark.svg" alt="Firefight" style="height:15px;display:block;align-self:center">
+      <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.08em;color:var(--tx-4);text-transform:uppercase">Fireground command</span>
+    </div>
+    <div style="width:1px;height:20px;background:var(--bd-rule)"></div>
+    <div style="font-family:var(--ff-mono);font-size:11px;letter-spacing:0.04em;color:var(--tx-3);text-transform:uppercase">1420 Alder St&nbsp;&nbsp;/&nbsp;&nbsp;Structure A&nbsp;&nbsp;/&nbsp;&nbsp;Residential · 3 story</div>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:8px;padding:4px 10px;border:1px solid var(--bd-soft);border-radius:var(--r-sm);background:var(--bg-flush)">
+      <span style="width:7px;height:7px;border-radius:50%;background:{{liveDotColor}};animation:faPulse 1.6s infinite"></span>
+      <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.08em;color:var(--tx-3)">{{liveLabel}}</span>
+    </div>
+    <button onClick="{{onTheme}}" style="height:32px;padding:0 12px;border-radius:var(--r-sm);border:1px solid var(--bd-soft);background:var(--bg-flush);color:var(--tx-3);font-family:var(--ff-mono);font-size:10px;letter-spacing:0.08em;cursor:pointer" style-hover="color:var(--tx-1);border-color:var(--bd-rule)">{{themeLabel}}</button>
+    <div style="font-family:var(--ff-mono);font-size:18px;font-weight:500;letter-spacing:0.02em">{{clock}}</div>
+    <button onClick="{{onEvac}}" style="height:32px;padding:0 16px;border-radius:var(--r-xs);border:1px solid var(--c-alert);background:{{evacBg}};color:{{evacColor}};font-family:var(--ff-mono);font-size:11px;font-weight:700;letter-spacing:0.1em;cursor:pointer" style-hover="filter:brightness(1.15)">{{evacLabel}}</button>
+  </div>
+
+  <sc-if value="{{maydayShow}}" hint-placeholder-val="{{false}}">
+    <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:8px 16px;background:var(--c-alert-tint);border-bottom:1px solid var(--c-alert)">
+      <span style="width:9px;height:9px;border-radius:50%;background:var(--c-alert);animation:faPulse 0.8s infinite"></span>
+      <span style="font-family:var(--ff-mono);font-size:12px;font-weight:700;letter-spacing:0.1em;color:var(--c-alert)">MAYDAY</span>
+      <span style="font-size:13px;color:var(--tx-1)">{{maydayText}}</span>
+      <div style="flex:1"></div>
+      <button onClick="{{onAck}}" style="height:26px;padding:0 12px;border-radius:var(--r-xs);border:1px solid var(--c-alert);background:transparent;color:var(--c-alert);font-family:var(--ff-mono);font-size:10px;font-weight:700;letter-spacing:0.08em;cursor:pointer" style-hover="background:var(--c-alert-tint)">ACKNOWLEDGE</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{evacShow}}" hint-placeholder-val="{{false}}">
+    <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:8px 16px;background:var(--c-alert);border-bottom:1px solid var(--c-alert)">
+      <span style="font-family:var(--ff-mono);font-size:12px;font-weight:700;letter-spacing:0.1em;color:#fff">GENERAL EVACUATION</span>
+      <span style="font-size:13px;color:rgba(255,255,255,0.85)">All crews exit the structure. PAR on arrival at command.</span>
+    </div>
+  </sc-if>
+
+  <div style="flex:1;display:flex;min-height:0">
+    <div ref="{{wrapRef}}" style="flex:1;position:relative;min-width:0;background:radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.028), transparent 65%)">
+      <canvas ref="{{canvasRef}}" onPointerDown="{{onPD}}" onPointerMove="{{onPM}}" onPointerUp="{{onPU}}" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab"></canvas>
+
+      <div style="position:absolute;top:14px;left:14px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.1em;color:var(--tx-5);text-transform:uppercase;padding-left:2px">Floor</div>
+        <sc-for list="{{floorBtns}}" as="fb" hint-placeholder-count="4">
+          <button onClick="{{fb.set}}" style="width:44px;height:32px;border-radius:var(--r-xs);border:1px solid {{fb.bd}};background:{{fb.bg}};color:{{fb.color}};font-family:var(--ff-mono);font-size:11px;font-weight:700;letter-spacing:0.05em;cursor:pointer" style-hover="border-color:rgba(255,255,255,0.3)">{{fb.label}}</button>
+        </sc-for>
+      </div>
+
+      <div style="position:absolute;bottom:14px;left:14px;display:flex;gap:14px;align-items:center;padding:8px 12px;border:1px solid var(--bd-hair);border-radius:var(--r-sm);background:rgba(0,0,0,0.55);backdrop-filter:blur(4px)">
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--tx-1)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">CREW</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--c-signal)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">FIRE / HEAT</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--c-alert)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">VICTIM / HAZARD</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--c-warn)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">CAUTION</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--c-bone)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">DOOR / WINDOW</span></div>
+        <div style="width:1px;height:14px;background:var(--bd-rule)"></div>
+        <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-5)">DRAG TO ORBIT · SCROLL TO ZOOM · TAP TO INSPECT</span>
+      </div>
+
+      <sc-if value="{{selShow}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;top:14px;right:14px;width:264px;background:var(--bg-card);border:1px solid var(--bd-soft);border-radius:var(--r-md);box-shadow:var(--shadow-2);padding:14px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:8px;height:8px;border-radius:50%;background:{{selColor}}"></span>
+            <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.1em;color:var(--tx-4);text-transform:uppercase;flex:1">{{selEyebrow}}</span>
+            <button onClick="{{closeSel}}" style="width:22px;height:22px;border:none;background:transparent;color:var(--tx-4);font-size:14px;cursor:pointer;padding:0;line-height:1" style-hover="color:#fff">✕</button>
+          </div>
+          <div style="font-family:var(--ff-sans);font-size:16px;font-weight:600;letter-spacing:-0.01em">{{selTitle}}</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{selRows}}" as="row" hint-placeholder-count="4">
+              <div style="display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--bd-hair);padding-bottom:5px">
+                <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-4);text-transform:uppercase;padding-top:2px">{{row.k}}</span>
+                <span style="font-family:var(--ff-mono);font-size:12px;color:{{row.c}}">{{row.v}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{selNoteShow}}" hint-placeholder-val="{{false}}">
+            <div style="font-size:12px;line-height:1.5;color:var(--tx-3)">{{selNote}}</div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="flex:0 0 316px;border-left:1px solid var(--bd-soft);display:flex;flex-direction:column;min-height:0;background:rgba(255,255,255,0.015)">
+      <div style="display:flex;align-items:center;gap:8px;padding:12px 14px 8px">
+        <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.1em;color:var(--tx-3);text-transform:uppercase;flex:1">Crew · 4</span>
+        <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;padding:3px 8px;border-radius:var(--r-pill);background:{{parBg}};color:{{parColor}}">{{parLabel}}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:0 14px">
+        <sc-for list="{{roster}}" as="r" hint-placeholder-count="4">
+          <div onClick="{{r.select}}" style="background:var(--bg-card);border:1px solid {{r.bd}};border-radius:var(--r-md);padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:7px" style-hover="border-color:rgba(255,255,255,0.22)">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-family:var(--ff-mono);font-size:10px;font-weight:700;letter-spacing:0.05em;padding:2px 6px;border-radius:var(--r-xs);background:var(--bg-raised);color:var(--tx-2)">{{r.unit}}</span>
+              <span style="font-size:13px;font-weight:600;flex:1">{{r.name}}</span>
+              <span style="font-family:var(--ff-mono);font-size:9px;font-weight:500;letter-spacing:0.06em;padding:3px 8px;border-radius:var(--r-pill);background:{{r.stBg}};color:{{r.stColor}}">{{r.status}}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="flex:1;height:4px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden">
+                <div style="height:100%;border-radius:999px;background:{{r.o2Color}};width:{{r.o2W}}"></div>
+              </div>
+              <span style="font-family:var(--ff-mono);font-size:12px;font-weight:500;color:{{r.o2Color}};min-width:38px;text-align:right">{{r.o2}}</span>
+            </div>
+            <div style="display:flex;gap:12px;font-family:var(--ff-mono);font-size:10px;letter-spacing:0.03em;color:var(--tx-4)">
+              <span>{{r.psi}}</span><span>IN {{r.timeIn}}</span><span style="flex:1"></span><span style="color:var(--tx-3)">{{r.floorLabel}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:14px 14px 8px">
+        <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.1em;color:var(--tx-3);text-transform:uppercase;flex:1">Alerts</span>
+        <span style="font-family:var(--ff-mono);font-size:10px;color:var(--tx-4)">{{alertCount}}</span>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:0 14px 14px;display:flex;flex-direction:column;gap:6px;min-height:0">
+        <sc-for list="{{alertsList}}" as="al" hint-placeholder-count="3">
+          <div onClick="{{al.select}}" style="display:flex;gap:9px;padding:8px 10px;border-radius:var(--r-sm);background:{{al.bg}};border:1px solid var(--bd-hair);cursor:pointer" style-hover="border-color:rgba(255,255,255,0.18)">
+            <span style="width:7px;height:7px;border-radius:50%;background:{{al.color}};margin-top:4px;flex:0 0 7px"></span>
+            <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+              <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.06em;color:var(--tx-4)">{{al.time}}</span>
+              <span style="font-size:12px;line-height:1.35;color:var(--tx-2)">{{al.text}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:0 0 60px;display:flex;align-items:center;gap:14px;padding:0 16px;border-top:1px solid var(--bd-soft);background:var(--c-void)">
+    <button onClick="{{onPlayPause}}" style="width:36px;height:36px;border-radius:var(--r-xs);border:1px solid var(--bd-rule);background:var(--bg-raised);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="border-color:var(--c-signal)">
+      <sc-if value="{{isPlaying}}" hint-placeholder-val="{{true}}">
+        <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="1" width="3.6" height="10" fill="currentColor"></rect><rect x="7.4" y="1" width="3.6" height="10" fill="currentColor"></rect></svg>
+      </sc-if>
+      <sc-if value="{{isPaused}}" hint-placeholder-val="{{false}}">
+        <svg width="12" height="12" viewBox="0 0 12 12"><polygon points="2,0.5 11.5,6 2,11.5" fill="currentColor"></polygon></svg>
+      </sc-if>
+    </button>
+    <button onClick="{{onReplay}}" style="height:36px;padding:0 12px;border-radius:var(--r-xs);border:1px solid var(--bd-rule);background:transparent;color:var(--tx-3);font-family:var(--ff-mono);font-size:10px;letter-spacing:0.08em;cursor:pointer" style-hover="color:#fff;border-color:rgba(255,255,255,0.3)">REPLAY</button>
+    <span style="font-family:var(--ff-mono);font-size:12px;color:var(--tx-2);min-width:64px">{{clock}}</span>
+    <div style="flex:1;position:relative;height:24px;display:flex;align-items:center">
+      <div style="position:absolute;inset:0;pointer-events:none">
+        <sc-for list="{{evTicks}}" as="tk" hint-placeholder-count="6">
+          <span style="position:absolute;top:2px;left:{{tk.left}};width:2px;height:5px;border-radius:1px;background:{{tk.color}}"></span>
+        </sc-for>
+      </div>
+      <input id="scrub" type="range" min="0" max="90" step="0.05" value="{{scrubVal}}" onChange="{{onScrub}}" style="background:{{scrubBg}}">
+    </div>
+    <span style="font-family:var(--ff-mono);font-size:12px;color:var(--tx-4)">T+30:00</span>
+    <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.06em;color:var(--tx-4);padding:3px 8px;border:1px solid var(--bd-hair);border-radius:var(--r-sm)">{{speedLabel}}</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;explodedView&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;section&quot;:&quot;View&quot;,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showTrails&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;section&quot;:&quot;View&quot;,&quot;tsType&quot;:&quot;boolean&quot;},&quot;simSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:3,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;x&quot;,&quot;section&quot;:&quot;Simulation&quot;,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.DUR = 90; this.TSCALE = 20; // 1 sim s = 20 mission s → 30:00 total
+    this.state = { playing: true, sel: null, iso: 0, ack: false, evac: false, uiTick: 0 };
+    this.simT = 0; this.yaw = -0.62; this.pitch = 0.62; this.zoom = 1;
+    this.canvasRef = React.createRef(); this.wrapRef = React.createRef();
+    this.hits = []; this.drag = null;
+    this.build();
+  }
+
+  build() {
+    const per = [[0,0,18,0],[18,0,18,11],[18,11,0,11],[0,11,0,0]];
+    this.walls = {
+      1: per.concat([[7,0,7,4],[7,7,7,11],[0,6,5,6],[14,0,14,4],[14,4,18,4],[12,6,12,11]]),
+      2: per.concat([[4,4.5,14,4.5],[4,6.5,14,6.5],[7,0,7,4.5],[12,0,12,4.5],[7,6.5,7,11],[12,6.5,12,11],[14,0,14,4],[14,4,18,4]]),
+      3: per.concat([[9,0,9,6],[4,6,4,11],[14,0,14,4],[14,4,18,4]])
+    };
+    this.ffs = [
+      { id:'M', unit:'E11-A', name:'MARTINEZ', o2s:92, drain:1.05, entry:4, exit:84,
+        wp:[[0,4,-2,1],[4,4,0.5,1],[8,4,3,1],[12,3,5.5,1],[16,5.5,5.5,1],[20,5.5,8.5,1],[26,10,8.5,1],[30,15,8,1],[33,15.5,5,1],[36,16.5,2,1],[38,16.5,2,2],[42,13,3,2],[45,10.5,2.5,2],[50,10.5,2.5,2],[56,13,5.5,2],[62,16.5,2,2],[66,16.5,2,1],[72,10,2,1],[80,4,0.5,1],[84,4,-2,1],[90,4,-2.5,1]],
+        segs:[[0,'STAGING','fog'],[4,'SEARCH · F1','ok'],[36,'SEARCH · F2','ok'],[45,'RESCUE','warn'],[66,'EGRESS','signal'],[84,'EXITED','fog']] },
+      { id:'C', unit:'E11-B', name:'CHEN', o2s:95, drain:0.62, entry:5, exit:82,
+        wp:[[0,5,-2,1],[5,4,0.5,1],[9,3,3,1],[13,2.5,5,1],[17,4,5,1],[22,4,9,1],[28,8,9.5,1],[34,12,9.5,1],[40,15,8,1],[46,15.5,5,1],[50,16.5,2,1],[58,12,2,1],[66,8,2,1],[74,5,1.5,1],[82,4,-2,1],[90,4,-2.5,1]],
+        segs:[[0,'STAGING','fog'],[5,'SEARCH · F1','ok'],[82,'EXITED','fog']] },
+      { id:'O', unit:'L3-A', name:'OKAFOR', o2s:89, drain:0.55, entry:12, exit:null,
+        wp:[[0,6,-2,1],[8,6,-2,1],[12,4,0.5,1],[16,9,1.5,1],[20,14,1.5,1],[24,16.5,2,1],[26,16.5,2,2],[30,14,4,2],[36,8,5.5,2],[42,12,5.5,2],[48,16.5,2,2],[52,16.5,2,3],[58,13,3,3],[64,9,4,3],[68,8.5,4.5,3],[90,8.5,4.5,3]],
+        segs:[[0,'STAGING','fog'],[12,'ASCENT','ok'],[26,'SEARCH · F2','ok'],[52,'SEARCH · F3','ok'],[68,'MAYDAY','alert']] },
+      { id:'D', unit:'L3-B', name:'DUBOIS', o2s:94, drain:0.6, entry:13, exit:null,
+        wp:[[0,7,-2,1],[8,7,-2,1],[13,4,0.5,1],[18,9,1.5,1],[24,16.5,2,1],[27,16.5,2,2],[32,13,7,2],[38,9,8.5,2],[46,13,7,2],[54,16.5,2,2],[58,16.5,2,3],[64,14,2.5,3],[70,11,3.5,3],[76,8.5,4.5,3],[90,8.5,4.5,3]],
+        segs:[[0,'STAGING','fog'],[13,'ASCENT','ok'],[27,'VENT · F2','ok'],[58,'SEARCH · F3','ok'],[68,'RIT RESPONSE','warn'],[76,'WITH L3-A','warn']] }
+    ];
+    this.annots = [
+      { id:'a1', f:1, x:4, y:0, t:4, type:'door', short:'DOOR OPEN', note:'Front entry, side A. Primary ingress.', by:'E11-A' },
+      { id:'a2', f:1, x:0, y:5, t:13, type:'window', short:'WINDOW OPEN', note:'West wall. Possible ventilation point.', by:'E11-B' },
+      { id:'a3', f:1, x:2.8, y:6, t:14, type:'blocked', short:'BLOCKED', note:'Collapsed shelving across passage. Crew rerouted.', by:'E11-B' },
+      { id:'a4', f:1, x:7, y:5.5, t:16, type:'door', short:'DOOR OPEN', note:'Interior door, hall to living room.', by:'E11-A' },
+      { id:'a14', f:1, x:1.6, y:9.4, t:22, type:'fire', short:'EXTREME HEAT', note:'Active fire, F1 kitchen. 480 °C at ceiling. No entry without a hose line.', by:'E11-B' },
+      { id:'a5', f:1, x:9.5, y:9, t:28, type:'clutter', short:'CLUTTER', note:'Heavy clutter field. Slow advance, trip hazard.', by:'E11-B' },
+      { id:'a6', f:1, x:12, y:11, t:34, type:'window', short:'WINDOW CLOSED', note:'North wall. Intact glazing.', by:'E11-B' },
+      { id:'a7', f:1, x:14, y:3, t:33, type:'door', short:'STAIR DOOR', note:'Stairwell access, open. Vertical route confirmed.', by:'E11-A' },
+      { id:'a8', f:2, x:6.5, y:5.5, t:38, type:'structural', short:'FLOOR SAG', note:'Deflection underfoot, corridor west. Avoid. Zone flagged B-2.', by:'L3-A' },
+      { id:'a15', f:2, x:2.5, y:9.2, t:48, type:'fire', short:'FIRE SPREAD', note:'Extension into F2 above the kitchen. Burn-through at floor assembly. 310 °C and climbing.', by:'L3-B' },
+      { id:'a9', f:2, x:9, y:11, t:39, type:'window', short:'VENTED', note:'North window taken for horizontal ventilation.', by:'L3-B' },
+      { id:'a11', f:2, x:12, y:2.5, t:43, type:'door', short:'DOOR OPEN', note:'Bedroom 2 door forced.', by:'E11-A' },
+      { id:'a10', f:2, x:10.5, y:2, t:45, type:'victim', short:'VICTIM', note:'Adult, responsive. Thermal signature confirmed. Extraction via stair A.', by:'E11-A' },
+      { id:'a12', f:3, x:13, y:3, t:59, type:'clutter', short:'CLUTTER', note:'Stored materials, east room.', by:'L3-A' },
+      { id:'a13', f:3, x:8, y:0, t:65, type:'window', short:'WINDOW CLOSED', note:'South dormer, intact.', by:'L3-A' }
+    ];
+    this.alerts = [
+      { t:4, sev:'info', text:'E11 made entry — front door, side A.', ref:{type:'a',id:'a1'} },
+      { t:14, sev:'warn', text:'Blocked passage, F1 west. E11-B rerouting.', ref:{type:'a',id:'a3'} },
+      { t:22, sev:'alert', text:'Extreme heat — F1 kitchen, 480 °C at ceiling. Fire area flagged.', ref:{type:'a',id:'a14'} },
+      { t:38, sev:'alert', text:'Structural — floor sag F2 corridor, zone B-2. Crews rerouting.', ref:{type:'a',id:'a8'} },
+      { t:39, sev:'info', text:'F2 north window vented — L3-B.', ref:{type:'a',id:'a9'} },
+      { t:45, sev:'alert', text:'VICTIM located — F2 bedroom 2. Adult, responsive.', ref:{type:'a',id:'a10'} },
+      { t:48, sev:'alert', text:'Fire extension — F2 above kitchen. Burn-through at floor. Crews keep clear of zone.', ref:{type:'a',id:'a15'} },
+      { t:52, sev:'warn', text:'Low air — MARTINEZ 38%. Monitor for egress.', ref:{type:'ff',id:'M'} },
+      { t:60, sev:'info', text:'Victim extraction in progress via stair A — E11-A.', ref:{type:'ff',id:'M'} },
+      { t:68, sev:'alert', text:'MAYDAY — L3-A OKAFOR. No motion 15 s, F3 center. RIT activated.', ref:{type:'ff',id:'O'} },
+      { t:76, sev:'ok', text:'L3-B reached L3-A — conscious, entangled. Extricating.', ref:{type:'ff',id:'O'} },
+      { t:84, sev:'ok', text:'Victim clear of structure. Handed to EMS.', ref:{type:'ff',id:'M'} }
+    ];
+    this.furn = [
+      { f:1, x:2.5, y:2.0, w:2.6, d:1.1, h:0.5 }, { f:1, x:2.5, y:1.55, w:2.6, d:0.25, h:0.95 },
+      { f:1, x:1.08, y:2.0, w:0.25, d:1.1, h:0.7 }, { f:1, x:3.92, y:2.0, w:0.25, d:1.1, h:0.7 },
+      { f:1, x:2.5, y:3.9, w:1.3, d:0.65, h:0.4 },
+      { f:1, x:2.2, y:10.45, w:3.6, d:0.85, h:0.9 }, { f:1, x:0.55, y:10.4, w:0.8, d:0.8, h:1.8 },
+      { f:1, x:10, y:8.8, w:1.9, d:1.1, h:0.72 },
+      { f:1, x:9.3, y:9.7, w:0.55, d:0.55, h:0.55 }, { f:1, x:9.9, y:9.3, w:0.45, d:0.45, h:0.45 }, { f:1, x:9.5, y:8.75, w:0.5, d:0.5, h:0.35 },
+      { f:2, x:3, y:1.5, w:1.7, d:2.2, h:0.5 }, { f:2, x:3, y:0.35, w:1.7, d:0.2, h:0.9 },
+      { f:2, x:9.5, y:1.5, w:1.7, d:2.2, h:0.5 }, { f:2, x:9.5, y:0.35, w:1.7, d:0.2, h:0.9 },
+      { f:2, x:5.5, y:10.2, w:1.7, d:0.6, h:0.95 }, { f:2, x:15.8, y:9, w:1.5, d:0.7, h:0.75 },
+      { f:3, x:13, y:2.6, w:0.8, d:0.8, h:0.8 }, { f:3, x:13.75, y:3.1, w:0.7, d:0.7, h:0.7 }, { f:3, x:13.1, y:2.7, w:0.6, d:0.6, h:0.6, zo:0.8 },
+      { f:3, x:5.5, y:8.5, w:1.6, d:0.8, h:0.8 }, { f:3, x:2.5, y:9.5, w:0.9, d:0.9, h:0.6 }
+    ];
+    this.doors = [
+      { f:1, x:4, y:0, dir:'x', t:4 }, { f:1, x:7, y:5.5, dir:'y', t:16 }, { f:1, x:14, y:3, dir:'y', t:33 },
+      { f:2, x:14, y:3, dir:'y', t:26 }, { f:2, x:12, y:2.5, dir:'y', t:43 }, { f:3, x:14, y:3, dir:'y', t:52 }
+    ];
+    this.fires = [
+      { f:1, x:1.6, y:9.4, t:22, r0:1.5, r1:2.7, tEnd:80 },
+      { f:2, x:2.5, y:9.2, t:48, r0:0.9, r1:2.0, tEnd:90 }
+    ];
+    this.wins = [
+      { f:1, x:0, y:5, dir:'y', t:13 }, { f:1, x:12, y:11, dir:'x', t:34 },
+      { f:2, x:9, y:11, dir:'x', t:39 }, { f:3, x:8, y:0, dir:'x', t:65 }
+    ];
+    // reveal times per wall: first time any ff on that floor passes within 3.4 m
+    for (const f of [1,2,3]) for (const w of this.walls[f]) w.push(null);
+    for (const ff of this.ffs) {
+      for (let t = 0; t <= this.DUR; t += 0.5) {
+        const p = this.pos(ff, t);
+        const fl = Math.round(p.f);
+        if (p.x < 0 || p.y < 0) continue;
+        for (const w of this.walls[fl]) {
+          if (w[4] !== null && w[4] <= t) continue;
+          if (this.dSeg(p.x, p.y, w) < 3.4) w[4] = (w[4] === null) ? t : Math.min(w[4], t);
+        }
+        for (const fu of this.furn) {
+          if (fu.f !== fl) continue;
+          if (fu.rt != null && fu.rt <= t) continue;
+          if (Math.hypot(p.x - fu.x, p.y - fu.y) < 3.2) fu.rt = (fu.rt == null) ? t : Math.min(fu.rt, t);
+        }
+      }
+    }
+  }
+
+  dSeg(px, py, w) {
+    const [x1,y1,x2,y2] = w; const dx = x2-x1, dy = y2-y1;
+    const L2 = dx*dx + dy*dy || 1e-9;
+    const u = Math.max(0, Math.min(1, ((px-x1)*dx + (py-y1)*dy) / L2));
+    const cx = x1 + u*dx, cy = y1 + u*dy;
+    return Math.hypot(px-cx, py-cy);
+  }
+
+  pos(ff, t) {
+    const wp = ff.wp;
+    if (t <= wp[0][0]) return { x: wp[0][1], y: wp[0][2], f: wp[0][3] };
+    for (let i = 0; i < wp.length - 1; i++) {
+      const a = wp[i], b = wp[i+1];
+      if (t >= a[0] && t <= b[0]) {
+        const u = (t - a[0]) / Math.max(0.001, b[0] - a[0]);
+        return { x: a[1]+(b[1]-a[1])*u, y: a[2]+(b[2]-a[2])*u, f: a[3]+(b[3]-a[3])*u };
+      }
+    }
+    const l = wp[wp.length-1]; return { x: l[1], y: l[2], f: l[3] };
+  }
+
+  o2Of(ff, t) {
+    const tin = Math.max(0, Math.min(t, ff.exit ?? t) - ff.entry);
+    return Math.max(3, ff.o2s - ff.drain * tin);
+  }
+
+  fmt(t) {
+    const s = Math.round(t * this.TSCALE), m = Math.floor(s/60);
+    return 'T+' + String(m).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+  }
+
+  componentDidMount() {
+    const cv = this.canvasRef.current;
+    if (cv) {
+      this._onWheel = (e) => {
+        e.preventDefault();
+        this.zoom = Math.max(0.45, Math.min(3.5, this.zoom * Math.exp(-e.deltaY * 0.0012)));
+      };
+      cv.addEventListener('wheel', this._onWheel, { passive: false });
+    }
+    let last = performance.now();
+    const loop = (now) => {
+      const dt = Math.min(0.1, (now - last) / 1000); last = now;
+      const speed = this.props.simSpeed ?? 1;
+      if (this.state.playing && this.simT < this.DUR) {
+        this.simT = Math.min(this.DUR, this.simT + dt * speed);
+        if (this.simT >= this.DUR) this.setState({ playing: false });
+      }
+      this.draw(now);
+      if (now - (this._lastUi || 0) > 250) { this._lastUi = now; this.setState(s => ({ uiTick: s.uiTick + 1 })); }
+      this._raf = requestAnimationFrame(loop);
+    };
+    this._raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    const cv = this.canvasRef.current;
+    if (cv && this._onWheel) cv.removeEventListener('wheel', this._onWheel);
+  }
+
+  projU(x, y, z, cy, sy, cp, sp) {
+    const px = x - 9, py = y - 5.5, pz = z - 5;
+    const rx = px*cy - py*sy, ry = px*sy + py*cy;
+    const depth = ry*cp + pz*sp;
+    const D = 50, k = D / Math.max(5, D - depth);
+    return [rx*k, (ry*sp - pz*cp)*k];
+  }
+
+  draw(now) {
+    const cv = this.canvasRef.current, wrap = this.wrapRef.current;
+    if (!cv || !wrap) return;
+    const cw = wrap.clientWidth, ch = wrap.clientHeight, dpr = window.devicePixelRatio || 1;
+    if (cv.width !== cw*dpr || cv.height !== ch*dpr) { cv.width = cw*dpr; cv.height = ch*dpr; }
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,cw,ch);
+    const t = this.simT, sel = this.state.sel, iso = this.state.iso;
+    const exploded = this.props.explodedView ?? true;
+    const gap = 3 + (exploded ? 2.4 : 0.6), wallH = 2.1;
+    const cy = Math.cos(this.yaw), sy = Math.sin(this.yaw);
+    const cp = Math.cos(this.pitch), sp = Math.sin(this.pitch);
+    // fit
+    let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9;
+    for (const [x,y] of [[0,-3],[18,-3],[0,11],[18,11]]) for (const z of [0, 2*gap + wallH]) {
+      const [u,v] = this.projU(x,y,z,cy,sy,cp,sp);
+      mnx=Math.min(mnx,u);mny=Math.min(mny,v);mxx=Math.max(mxx,u);mxy=Math.max(mxy,v);
+    }
+    const s = Math.min((cw-140)/(mxx-mnx), (ch-90)/(mxy-mny)) * this.zoom;
+    const ox = cw/2 - (mnx+mxx)/2*s + 20, oy = ch/2 - (mny+mxy)/2*s;
+    const P = (x,y,z) => { const [u,v] = this.projU(x,y,z,cy,sy,cp,sp); return [u*s+ox, v*s+oy]; };
+    this.hits = [];
+    const C = { signal:'#F26B1A', alert:'#E44D4D', warn:'#F1A824', ok:'#3AA860', bone:'#D9D9D9', fog:'#A0A0A0' };
+    const light = (document.documentElement.getAttribute('data-theme') === 'light');
+    const INK = light ? '15,12,26' : '255,255,255';
+    if (light) { C.bone = '#4A4744'; C.fog = '#78746E'; }
+    const chipBg = light ? 'rgba(255,253,248,0.95)' : 'rgba(19,19,19,0.92)';
+    const dotCol = light ? '#17141F' : '#FFFFFF';
+    const aCol = { door:C.bone, window:C.fog, blocked:C.warn, clutter:C.warn, structural:C.alert, victim:C.alert, fire:C.signal };
+    const aGly = { door:'D', window:'W', blocked:'X', clutter:'C', structural:'S', victim:'V', fire:'F' };
+    const rrect = (x,y,w,h,r) => { ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); };
+
+    for (const f of [1,2,3]) {
+      const z = (f-1)*gap;
+      const aF = iso ? (f === iso ? 1 : 0.07) : 1;
+      // plate
+      ctx.beginPath();
+      const corners = [[0,0],[18,0],[18,11],[0,11]].map(([x,y]) => P(x,y,z));
+      ctx.moveTo(...corners[0]); for (let i=1;i<4;i++) ctx.lineTo(...corners[i]); ctx.closePath();
+      ctx.fillStyle = `rgba(${INK},${0.025*aF})`; ctx.fill();
+      ctx.strokeStyle = `rgba(${INK},${0.12*aF})`; ctx.lineWidth = 1; ctx.stroke();
+      // floor label
+      const fl = P(-1.6, 0.4, z);
+      ctx.font = '700 12px Roboto Mono'; ctx.fillStyle = `rgba(${INK},${0.45*aF})`;
+      ctx.textAlign = 'center'; ctx.fillText('F'+f, fl[0], fl[1]);
+      // trails
+      if (this.props.showTrails ?? true) {
+        for (const ff of this.ffs) {
+          const isSel = sel && sel.type==='ff' && sel.id===ff.id;
+          ctx.strokeStyle = isSel ? `rgba(242,107,26,${0.6*aF})` : `rgba(${INK},${0.18*aF})`;
+          ctx.lineWidth = isSel ? 2 : 1.2;
+          let open = false; ctx.beginPath();
+          for (let tt = ff.wp[0][0]; tt <= t; tt += 0.6) {
+            const p = this.pos(ff, tt);
+            if (Math.round(p.f) === f && p.x >= -0.5) {
+              const q = P(p.x, p.y, z);
+              if (!open) { ctx.moveTo(...q); open = true; } else ctx.lineTo(...q);
+            } else open = false;
+          }
+          ctx.stroke();
+        }
+      }
+      // fire areas
+      for (const fi of this.fires) {
+        if (fi.f !== f || fi.t > t) continue;
+        const k = Math.min(1, (t - fi.t) / 2) * aF;
+        const R = fi.r0 + (fi.r1 - fi.r0) * Math.min(1, Math.max(0, (t - fi.t) / (fi.tEnd - fi.t)));
+        for (const [rr, colr, al] of [[1,'242,107,26',0.16],[0.62,'228,77,77',0.22],[0.32,'241,168,36',0.3]]) {
+          ctx.beginPath();
+          for (let i = 0; i <= 16; i++) {
+            const a2 = i/16 * Math.PI * 2;
+            const wob = 1 + 0.13*Math.sin(a2*3 + now/260) + 0.09*Math.sin(a2*5 - now/180);
+            const q = P(fi.x + Math.cos(a2)*R*rr*wob, fi.y + Math.sin(a2)*R*rr*wob*0.8, z+0.02);
+            if (i === 0) ctx.moveTo(...q); else ctx.lineTo(...q);
+          }
+          ctx.closePath();
+          ctx.fillStyle = `rgba(${colr},${al*k})`; ctx.fill();
+        }
+        ctx.setLineDash([4,3]);
+        ctx.strokeStyle = `rgba(242,107,26,${0.7*k})`; ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        for (let i = 0; i <= 20; i++) {
+          const a2 = i/20 * Math.PI * 2;
+          const q = P(fi.x + Math.cos(a2)*R*1.15, fi.y + Math.sin(a2)*R*0.95, z+0.02);
+          if (i === 0) ctx.moveTo(...q); else ctx.lineTo(...q);
+        }
+        ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
+      }
+      // walls
+      for (const w of this.walls[f]) {
+        const rt = w[4];
+        const k = (rt === null || rt > t) ? 0 : Math.min(1, (t-rt)/1.5);
+        const b1 = P(w[0],w[1],z), b2 = P(w[2],w[3],z), t2 = P(w[2],w[3],z+wallH), t1 = P(w[0],w[1],z+wallH);
+        ctx.beginPath(); ctx.moveTo(...b1); ctx.lineTo(...b2); ctx.lineTo(...t2); ctx.lineTo(...t1); ctx.closePath();
+        ctx.fillStyle = `rgba(${INK},${(0.018+0.05*k)*aF})`; ctx.fill();
+        ctx.strokeStyle = `rgba(${INK},${(0.08+0.42*k)*aF})`; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(...t1); ctx.lineTo(...t2); ctx.stroke();
+        ctx.strokeStyle = `rgba(${INK},${(0.06+0.2*k)*aF})`;
+        ctx.beginPath(); ctx.moveTo(...b1); ctx.lineTo(...b2); ctx.stroke();
+      }
+      // furniture meshes
+      const box = (cx, cy, w2, d2, h2, zo, k) => {
+        const z0 = z + zo, z1 = z0 + h2;
+        const cs = [[cx-w2/2,cy-d2/2],[cx+w2/2,cy-d2/2],[cx+w2/2,cy+d2/2],[cx-w2/2,cy+d2/2]];
+        const bot = cs.map(([x,y]) => P(x,y,z0)), top = cs.map(([x,y]) => P(x,y,z1));
+        ctx.beginPath(); ctx.moveTo(...bot[0]); for (let i=1;i<4;i++) ctx.lineTo(...bot[i]); ctx.closePath();
+        ctx.strokeStyle = `rgba(${INK},${0.1*k*aF})`; ctx.lineWidth = 1; ctx.stroke();
+        ctx.strokeStyle = `rgba(${INK},${0.16*k*aF})`;
+        for (let i=0;i<4;i++) { ctx.beginPath(); ctx.moveTo(...bot[i]); ctx.lineTo(...top[i]); ctx.stroke(); }
+        ctx.beginPath(); ctx.moveTo(...top[0]); for (let i=1;i<4;i++) ctx.lineTo(...top[i]); ctx.closePath();
+        ctx.fillStyle = `rgba(${INK},${0.07*k*aF})`; ctx.fill();
+        ctx.strokeStyle = `rgba(${INK},${0.4*k*aF})`; ctx.stroke();
+      };
+      for (const fu of this.furn) {
+        if (fu.f !== f) continue;
+        const k = (fu.rt == null || fu.rt > t) ? 0.12 : Math.min(1, 0.12 + (t - fu.rt) / 1.5);
+        box(fu.x, fu.y, fu.w, fu.d, fu.h, fu.zo || 0, k);
+      }
+      // doors (swing arc + leaf)
+      for (const dr of this.doors) {
+        if (dr.f !== f || dr.t > t) continue;
+        const k = Math.min(1, (t - dr.t) / 1.2) * aF;
+        const ang = 1.15;
+        const ux = dr.dir === 'x' ? 1 : 0, uy = dr.dir === 'x' ? 0 : 1;
+        const vx = dr.dir === 'x' ? 0 : 1, vy = dr.dir === 'x' ? 1 : 0;
+        const sgn = dr.dir === 'x' ? (dr.y < 5.5 ? 1 : -1) : (dr.x < 9 ? 1 : -1);
+        const hx = dr.x - ux * 0.45, hy = dr.y - uy * 0.45;
+        ctx.strokeStyle = `rgba(${INK},${0.22*k})`; ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let i = 0; i <= 8; i++) {
+          const a2 = (i / 8) * ang;
+          const q = P(hx + (ux*Math.cos(a2) + vx*Math.sin(a2)*sgn) * 0.9, hy + (uy*Math.cos(a2) + vy*Math.sin(a2)*sgn) * 0.9, z);
+          if (i === 0) ctx.moveTo(...q); else ctx.lineTo(...q);
+        }
+        ctx.stroke();
+        const ex = hx + (ux*Math.cos(ang) + vx*Math.sin(ang)*sgn) * 0.9;
+        const ey = hy + (uy*Math.cos(ang) + vy*Math.sin(ang)*sgn) * 0.9;
+        const d1 = P(hx,hy,z), d2 = P(ex,ey,z), d3 = P(ex,ey,z+2), d4 = P(hx,hy,z+2);
+        ctx.beginPath(); ctx.moveTo(...d1); ctx.lineTo(...d2); ctx.lineTo(...d3); ctx.lineTo(...d4); ctx.closePath();
+        ctx.fillStyle = `rgba(${INK},${0.05*k})`; ctx.fill();
+        ctx.strokeStyle = light ? `rgba(74,71,68,${0.7*k})` : `rgba(217,217,217,${0.55*k})`; ctx.stroke();
+      }
+      // windows (framed pane in wall plane)
+      for (const wd of this.wins) {
+        if (wd.f !== f || wd.t > t) continue;
+        const k = Math.min(1, (t - wd.t) / 1.2) * aF;
+        const ux = wd.dir === 'x' ? 0.6 : 0, uy = wd.dir === 'x' ? 0 : 0.6;
+        const c1 = P(wd.x-ux, wd.y-uy, z+0.9), c2 = P(wd.x+ux, wd.y+uy, z+0.9), c3 = P(wd.x+ux, wd.y+uy, z+1.9), c4 = P(wd.x-ux, wd.y-uy, z+1.9);
+        ctx.beginPath(); ctx.moveTo(...c1); ctx.lineTo(...c2); ctx.lineTo(...c3); ctx.lineTo(...c4); ctx.closePath();
+        ctx.fillStyle = light ? `rgba(140,150,170,${0.18*k})` : `rgba(160,180,210,${0.14*k})`; ctx.fill();
+        ctx.strokeStyle = `rgba(${INK},${0.5*k})`; ctx.lineWidth = 1; ctx.stroke();
+        const m1 = P(wd.x, wd.y, z+0.9), m2 = P(wd.x, wd.y, z+1.9);
+        ctx.strokeStyle = `rgba(${INK},${0.3*k})`;
+        ctx.beginPath(); ctx.moveTo(...m1); ctx.lineTo(...m2); ctx.stroke();
+      }
+      // stairs
+      ctx.strokeStyle = `rgba(${INK},${0.22*aF})`; ctx.lineWidth = 1;
+      for (let i = 0; i < 5; i++) {
+        const sy = 0.8 + i*0.6;
+        const q1 = P(15, sy, z), q2 = P(17.4, sy, z);
+        ctx.beginPath(); ctx.moveTo(...q1); ctx.lineTo(...q2); ctx.stroke();
+      }
+      // annotations
+      for (const a of this.annots) {
+        if (a.f !== f || a.t > t) continue;
+        const col = aCol[a.type];
+        const base = P(a.x, a.y, z), head = P(a.x, a.y, z+1.35);
+        const isSel = sel && sel.type==='a' && sel.id===a.id;
+        const fresh = t - a.t < 6;
+        const ga = aF * (isSel ? 1 : 0.95);
+        ctx.strokeStyle = `rgba(${INK},${0.25*aF})`; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(...base); ctx.lineTo(...head); ctx.stroke();
+        if ((a.type === 'victim' || a.type === 'fire' || (a.type === 'structural' && fresh)) && aF > 0.1) {
+          const pr = 9 + 3*Math.sin(now/180);
+          ctx.globalAlpha = 0.55 * aF;
+          ctx.strokeStyle = col; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.arc(head[0], head[1], pr, 0, 7); ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+        ctx.globalAlpha = ga;
+        ctx.beginPath(); ctx.arc(head[0], head[1], 7, 0, 7);
+        ctx.fillStyle = light ? '#FFFDF8' : '#131313'; ctx.fill();
+        ctx.strokeStyle = col; ctx.lineWidth = isSel ? 2 : 1.4; ctx.stroke();
+        ctx.font = '700 8px Roboto Mono'; ctx.fillStyle = col; ctx.textAlign = 'center';
+        ctx.fillText(aGly[a.type], head[0], head[1]+3);
+        if (fresh || isSel) {
+          const pop = Math.min(1, (t - a.t) / 0.4);
+          ctx.globalAlpha = ga * pop;
+          ctx.font = '700 9px Roboto Mono';
+          const tw = ctx.measureText(a.short).width;
+          const lx = head[0] + 12, ly = head[1] - 20;
+          rrect(lx, ly, tw + 14, 17, 4);
+          ctx.fillStyle = chipBg; ctx.fill();
+          ctx.strokeStyle = col; ctx.lineWidth = 1; ctx.stroke();
+          ctx.fillStyle = col; ctx.textAlign = 'left'; ctx.fillText(a.short, lx+7, ly+12);
+        }
+        ctx.globalAlpha = 1;
+        this.hits.push({ x: head[0], y: head[1], r: 13, type: 'a', id: a.id, f });
+      }
+      // firefighters
+      for (const ff of this.ffs) {
+        const p = this.pos(ff, t);
+        if (Math.round(p.f) !== f) continue;
+        const zc = (p.f-1)*gap;
+        const base = P(p.x, p.y, zc), head = P(p.x, p.y, zc+1.7);
+        const isSel = sel && sel.type==='ff' && sel.id===ff.id;
+        const mayday = ff.id==='O' && t >= 68;
+        const col = mayday ? C.alert : (isSel ? C.signal : dotCol);
+        ctx.strokeStyle = `rgba(${INK},${0.3*aF})`; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(...base); ctx.lineTo(...head); ctx.stroke();
+        if (mayday && aF > 0.1) {
+          const pr = 10 + 4*Math.sin(now/140);
+          ctx.strokeStyle = `rgba(228,77,77,${0.7*aF})`; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(head[0], head[1], pr, 0, 7); ctx.stroke();
+        }
+        ctx.globalAlpha = aF;
+        ctx.shadowColor = col; ctx.shadowBlur = 10;
+        ctx.beginPath(); ctx.arc(head[0], head[1], 5.5, 0, 7);
+        ctx.fillStyle = col; ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.font = '700 9px Roboto Mono';
+        const label = ff.unit;
+        const tw = ctx.measureText(label).width;
+        rrect(head[0]-tw/2-6, head[1]-28, tw+12, 16, 4);
+        ctx.fillStyle = chipBg; ctx.fill();
+        ctx.strokeStyle = isSel || mayday ? col : `rgba(${INK},0.2)`; ctx.lineWidth = 1; ctx.stroke();
+        ctx.fillStyle = mayday ? C.alert : dotCol; ctx.textAlign = 'center';
+        ctx.fillText(label, head[0], head[1]-16);
+        ctx.globalAlpha = 1;
+        this.hits.push({ x: head[0], y: head[1], r: 16, type: 'ff', id: ff.id, f });
+      }
+    }
+  }
+
+  hitTest(e) {
+    const rect = this.canvasRef.current.getBoundingClientRect();
+    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    let best = null, bd = 1e9;
+    for (const h of this.hits) {
+      if (this.state.iso && h.f !== this.state.iso) continue;
+      const d = Math.hypot(mx-h.x, my-h.y);
+      if (d < h.r + 4 && d < bd) { bd = d; best = h; }
+    }
+    return best;
+  }
+
+  renderVals() {
+    const t = this.simT, st = this.state;
+    const cvar = { ok:'var(--c-ok)', warn:'var(--c-warn)', alert:'var(--c-alert)', signal:'var(--c-signal)', fog:'var(--c-steel)', info:'var(--c-bone)' };
+    const tvar = { ok:'var(--c-ok-tint)', warn:'var(--c-warn-tint)', alert:'var(--c-alert-tint)', signal:'var(--c-signal-tint)', fog:'rgba(255,255,255,0.06)', info:'rgba(255,255,255,0.05)' };
+    const mayday = t >= 68;
+    const roster = this.ffs.map(ff => {
+      const o2 = this.o2Of(ff, t);
+      const o2k = o2 > 50 ? 'ok' : o2 > 25 ? 'warn' : 'alert';
+      let seg = ff.segs[0];
+      for (const sg of ff.segs) if (t >= sg[0]) seg = sg;
+      let [ , status, sk] = seg;
+      if (st.evac && t >= ff.entry && (!ff.exit || t < ff.exit) && sk !== 'alert') { status = 'EVACUATE'; sk = 'alert'; }
+      const p = this.pos(ff, t);
+      const inside = t >= ff.entry && (!ff.exit || t < ff.exit) && p.y > -0.5;
+      const sel = st.sel && st.sel.type === 'ff' && st.sel.id === ff.id;
+      return {
+        unit: ff.unit, name: ff.name, status, stBg: tvar[sk], stColor: cvar[sk],
+        o2: Math.round(o2) + '%', o2W: Math.round(o2) + '%', o2Color: cvar[o2k],
+        psi: Math.round(o2 * 45) + ' PSI',
+        timeIn: inside || (ff.exit && t >= ff.exit) ? this.fmt(Math.min(t, ff.exit ?? t) - ff.entry).slice(2) : '--:--',
+        floorLabel: inside ? 'F' + Math.round(p.f) : 'EXT',
+        bd: sel ? 'var(--c-signal)' : (sk === 'alert' ? 'var(--c-alert)' : 'var(--bd-soft)'),
+        select: () => this.setState({ sel: { type: 'ff', id: ff.id } })
+      };
+    });
+    const alertsList = this.alerts.filter(a => a.t <= t).reverse().map(a => ({
+      time: this.fmt(a.t), text: a.text, color: cvar[a.sev], bg: a.sev === 'alert' ? 'var(--c-alert-tint)' : 'var(--bg-flush)',
+      select: () => this.setState({ sel: a.ref })
+    }));
+    const evTicks = this.alerts.map(a => ({ left: (a.t / this.DUR * 100).toFixed(1) + '%', color: cvar[a.sev] }));
+    const floorBtns = [{ label: 'ALL', v: 0 }, { label: 'F3', v: 3 }, { label: 'F2', v: 2 }, { label: 'F1', v: 1 }].map(f => ({
+      label: f.label,
+      bg: st.iso === f.v ? 'var(--c-signal-tint)' : 'rgba(0,0,0,0.55)',
+      bd: st.iso === f.v ? 'var(--c-signal)' : 'var(--bd-soft)',
+      color: st.iso === f.v ? 'var(--c-signal)' : 'var(--tx-3)',
+      set: () => this.setState({ iso: f.v })
+    }));
+    // inspector
+    let selShow = false, selTitle = '', selEyebrow = '', selColor = '#fff', selRows = [], selNote = '', selNoteShow = false;
+    if (st.sel) {
+      if (st.sel.type === 'ff') {
+        const ff = this.ffs.find(f => f.id === st.sel.id);
+        if (ff) {
+          selShow = true; selTitle = ff.name; selEyebrow = 'CREW · ' + ff.unit;
+          const r = roster[this.ffs.indexOf(ff)];
+          selColor = r.o2Color;
+          selRows = [
+            { k: 'Status', v: r.status, c: r.stColor },
+            { k: 'Air supply', v: r.o2, c: r.o2Color },
+            { k: 'Cylinder', v: r.psi, c: 'var(--tx-2)' },
+            { k: 'Time inside', v: r.timeIn, c: 'var(--tx-2)' },
+            { k: 'Position', v: r.floorLabel + ' · ' + (this.pos(ff, t).x < 9 ? 'WEST' : 'EAST'), c: 'var(--tx-2)' }
+          ];
+        }
+      } else {
+        const a = this.annots.find(x => x.id === st.sel.id);
+        if (a && a.t <= t) {
+          const aCol = { door: 'var(--c-bone)', window: 'var(--c-fog)', blocked: 'var(--c-warn)', clutter: 'var(--c-warn)', structural: 'var(--c-alert)', victim: 'var(--c-alert)', fire: 'var(--c-signal)' };
+          selShow = true; selTitle = a.short; selEyebrow = a.type.toUpperCase() + ' · ' + a.id.toUpperCase();
+          selColor = aCol[a.type];
+          selRows = [
+            { k: 'Floor', v: 'F' + a.f + ' · ' + (a.x < 9 ? 'WEST' : 'EAST'), c: 'var(--tx-2)' },
+            { k: 'Detected', v: this.fmt(a.t), c: 'var(--tx-2)' },
+            { k: 'Source', v: a.by + ' THERMAL', c: 'var(--tx-2)' }
+          ];
+          selNote = a.note; selNoteShow = true;
+        }
+      }
+    }
+    const pct = (t / this.DUR * 100).toFixed(2);
+    return {
+      clock: this.fmt(t),
+      liveLabel: t >= this.DUR ? 'REPLAY' : 'LIVE · 4 SENSORS',
+      liveDotColor: t >= this.DUR ? 'var(--c-steel)' : 'var(--c-ok)',
+      isPlaying: st.playing, isPaused: !st.playing,
+      onPlayPause: () => this.setState(s => { if (!s.playing && this.simT >= this.DUR) this.simT = 0; return { playing: !s.playing }; }),
+      onReplay: () => { this.simT = 0; this.setState({ playing: true, ack: false, sel: null }); },
+      scrubVal: t, scrubBg: `linear-gradient(90deg, var(--c-signal) ${pct}%, rgba(255,255,255,0.12) ${pct}%)`,
+      onScrub: (e) => { this.simT = parseFloat(e.target.value); this.forceUpdate(); },
+      speedLabel: ((this.props.simSpeed ?? 1).toFixed(1)) + '×',
+      roster, alertsList, alertCount: String(alertsList.length).padStart(2, '0'), evTicks, floorBtns,
+      parLabel: mayday && !st.ack ? 'PAR CHECK' : 'PAR 4/4',
+      parBg: mayday && !st.ack ? 'var(--c-alert-tint)' : 'var(--c-ok-tint)',
+      parColor: mayday && !st.ack ? 'var(--c-alert)' : 'var(--c-ok)',
+      maydayShow: mayday && !st.ack && !st.evac,
+      maydayText: 'L3-A OKAFOR — no motion 15 s, F3 center. Last air 58%. RIT activated.',
+      onAck: () => this.setState({ ack: true, sel: { type: 'ff', id: 'O' } }),
+      evacShow: st.evac,
+      evacLabel: st.evac ? 'STAND DOWN' : 'EVACUATE',
+      evacBg: st.evac ? 'var(--c-alert)' : 'transparent',
+      evacColor: st.evac ? '#fff' : 'var(--c-alert)',
+      onEvac: () => this.setState(s => ({ evac: !s.evac })),
+      themeLabel: (document.documentElement.getAttribute('data-theme') === 'light') ? 'DARK MODE' : 'LIGHT MODE',
+      onTheme: () => {
+        const next = (document.documentElement.getAttribute('data-theme') === 'light') ? 'dark' : 'light';
+        const btn = document.querySelector(`#fa-theme-toggle button[data-theme-set="${next}"]`);
+        if (btn) btn.click(); else document.documentElement.setAttribute('data-theme', next);
+        this.forceUpdate();
+      },
+      selShow, selTitle, selEyebrow, selColor, selRows, selNote, selNoteShow,
+      closeSel: () => this.setState({ sel: null }),
+      canvasRef: this.canvasRef, wrapRef: this.wrapRef,
+      onPD: (e) => { this.drag = { x: e.clientX, y: e.clientY, moved: false }; e.target.setPointerCapture(e.pointerId); },
+      onPM: (e) => {
+        if (!this.drag) return;
+        const dx = e.clientX - this.drag.x;
+        const dy2 = e.clientY - this.drag.y;
+        if (Math.abs(dx) + Math.abs(dy2) > 5) this.drag.moved = true;
+        if (this.drag.moved) {
+          this.yaw += dx * 0.006;
+          this.pitch = Math.max(0.15, Math.min(1.45, this.pitch + dy2 * 0.005));
+          this.drag.x = e.clientX; this.drag.y = e.clientY;
+        }
+      },
+      onPU: (e) => {
+        const wasDrag = this.drag && this.drag.moved; this.drag = null;
+        if (wasDrag) return;
+        const h = this.hitTest(e);
+        this.setState({ sel: h ? { type: h.type, id: h.id } : null });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

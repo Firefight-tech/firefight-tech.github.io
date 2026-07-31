@@ -1,0 +1,315 @@
+/* ─────────────────────────────────────────────────────────────
+   Firefight Design System — core tokens
+   Source of truth for colors, type, spacing, radii, shadows.
+   Drop this file into any HTML page, link it, and reference vars.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Fonts ─────────────────────────────────────────────────── */
+/* Manrope (display) and Roboto Mono (data) loaded from Google Fonts.
+   Inter (UI) loaded locally from /fonts.                            */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-Light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-Medium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-SemiBold.ttf') format('truetype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-Bold.ttf') format('truetype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* Roboto Mono served from Google Fonts CDN (see @import above).
+   Manrope served from Google Fonts CDN (see @import above).
+   Inter is the only locally-hosted family.                    */
+
+:root {
+  /* ── Type families ─────────────────────────────────────── */
+  --ff-display: 'Manrope', 'Inter', system-ui, sans-serif;   /* @kind font */
+  --ff-sans:    'Inter', system-ui, -apple-system, sans-serif; /* @kind font */
+  --ff-mono:    'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace; /* @kind font */
+
+  /* ── Color · Surfaces (dark, primary mode) ─────────────── */
+  --c-void:        rgb(0, 0, 0);          /* True black — robot UI canvas    */
+  --c-night:       rgb(15, 12, 26);       /* Brand deep — cover, hero        */
+  --c-ink:         rgb(19, 19, 19);       /* Cards on black                  */
+  --c-graphite:    rgb(28, 28, 30);       /* Raised surface                  */
+  --c-slate:       rgb(46, 46, 46);       /* Border / divider                */
+  --c-iron:        rgb(76, 76, 76);       /* Subtle pill bg, inactive ctrl   */
+  --c-steel:       rgb(97, 97, 97);       /* Tertiary text on dark           */
+  --c-mist:        rgb(130, 130, 130);    /* Secondary text on dark          */
+  --c-fog:         rgb(160, 160, 160);    /* Subdued text                    */
+  --c-bone:        rgb(217, 217, 217);    /* Soft mark                       */
+
+  /* ── Color · Light side (docs, reports, marketing) ─────── */
+  --c-paper:       rgb(255, 253, 245);    /* Warm off-white — reports        */
+  --c-canvas:      rgb(244, 244, 244);    /* Light app bg                    */
+  --c-rule:        rgb(228, 228, 228);    /* Light border                    */
+  --c-line:        rgb(219, 219, 219);    /* Button outline                  */
+
+  /* ── Semantic surfaces (theme-aware) ───────────────────── */
+  /* Use these in new components so the design system swaps cleanly
+     between dark (default) and light themes.                     */
+  --bg-page:       var(--c-night);        /* Outer page background           */
+  --bg-card:       var(--c-ink);          /* Card / plate                    */
+  --bg-raised:     var(--c-graphite);     /* Raised over a card              */
+  --bg-flush:      rgba(255,255,255,0.03);/* Tinted-over-page                */
+  --bg-subtle:     rgba(255,255,255,0.04);/* Hover wash, chip                */
+  --bd-hair:       rgba(255,255,255,0.06);/* Hairline rule on dark           */
+  --bd-soft:       rgba(255,255,255,0.08);/* Card border on dark             */
+  --bd-rule:       rgba(255,255,255,0.10);/* Section divider                 */
+  --tx-1:          var(--t-on-dark-1);    /* Primary text                    */
+  --tx-2:          var(--c-bone);         /* Secondary heading               */
+  --tx-3:          var(--c-fog);          /* Body / subdued                  */
+  --tx-4:          var(--c-mist);         /* Caption / metadata              */
+  --tx-5:          var(--c-steel);        /* Footer / faint label            */
+
+  /* ── Color · Functional ────────────────────────────────── */
+  --c-signal:      rgb(242, 107, 26);     /* Primary CTA · Firefight orange    */
+  --c-signal-hi:   rgb(255, 130, 56);     /* Hover                           */
+  --c-signal-lo:   rgb(196, 80, 12);      /* Pressed                         */
+  --c-signal-tint: rgba(242, 107, 26, 0.14);
+
+  --c-alert:       rgb(228, 77, 77);      /* Stop, error, danger             */
+  --c-alert-tint:  rgba(228, 77, 77, 0.14);
+
+  --c-warn:        rgb(241, 168, 36);     /* Warning, in-progress            */
+  --c-warn-tint:   rgba(241, 168, 36, 0.16);
+
+  --c-ok:          rgb(58, 168, 96);      /* Success, scanned, complete      */
+  --c-ok-tint:     rgba(58, 168, 96, 0.18);
+
+  --c-violet:      rgb(140, 121, 240);    /* Tertiary accent — exploration   */
+  --c-violet-tint: rgba(140, 121, 240, 0.18);
+
+  /* ── Type · Foreground ─────────────────────────────────── */
+  --t-on-dark-1: rgb(255, 255, 255);
+  --t-on-dark-2: rgba(255, 255, 255, 0.72);
+  --t-on-dark-3: rgba(255, 255, 255, 0.50);
+  --t-on-dark-4: rgba(255, 255, 255, 0.30);
+
+  --t-on-light-1: rgb(15, 12, 26);
+  --t-on-light-2: rgba(15, 12, 26, 0.70);
+  --t-on-light-3: rgba(15, 12, 26, 0.50);
+
+  /* ── Spacing scale (4px grid) ──────────────────────────── */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 56px;
+  --s-10: 80px;
+  --s-11: 120px;
+
+  /* ── Radii ─────────────────────────────────────────────── */
+  --r-xs: 4px;     /* Buttons, chips                                      */
+  --r-sm: 7px;     /* Header pills                                        */
+  --r-md: 12px;    /* Cards                                               */
+  --r-lg: 20px;    /* Modal sheets, mission selection                     */
+  --r-xl: 28px;    /* Hero panels                                         */
+  --r-pill: 999px;
+
+  /* ── Borders ───────────────────────────────────────────── */
+  --bw-hair: 1px;
+  --bw-rule: 2px;
+
+  /* ── Shadows ───────────────────────────────────────────── */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.40);
+  --shadow-2: 0 6px 18px rgba(0,0,0,0.45);
+  --shadow-3: 0 18px 48px rgba(0,0,0,0.55);
+  --shadow-glow: 0 0 0 4px var(--c-signal-tint);
+
+  /* ── Motion ────────────────────────────────────────────── */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1); /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0.05, 0.35, 1); /* @kind other */
+  --d-fast: 120ms; /* @kind other */
+  --d-base: 220ms; /* @kind other */
+  --d-slow: 480ms; /* @kind other */
+
+  /* ── Type roles · Display ──────────────────────────────── */
+  --t-display-1-size: clamp(72px, 8vw, 128px);
+  --t-display-1-lh: 1.05; /* @kind font */
+  --t-display-1-tracking: -0.030em; /* @kind font */
+  --t-display-1-weight: 700; /* @kind font */
+
+  --t-display-2-size: clamp(48px, 5vw, 72px);
+  --t-display-2-lh: 1.08; /* @kind font */
+  --t-display-2-tracking: -0.025em; /* @kind font */
+  --t-display-2-weight: 700; /* @kind font */
+
+  /* ── Type roles · Headings (one token per line so each carries @kind font) ── */
+  --t-h1-size: 40px;
+  --t-h1-lh: 1.15; /* @kind font */
+  --t-h1-tracking: -0.02em; /* @kind font */
+  --t-h1-weight: 700; /* @kind font */
+  --t-h2-size: 28px;
+  --t-h2-lh: 1.20; /* @kind font */
+  --t-h2-tracking: -0.015em; /* @kind font */
+  --t-h2-weight: 600; /* @kind font */
+  --t-h3-size: 20px;
+  --t-h3-lh: 1.30; /* @kind font */
+  --t-h3-tracking: -0.005em; /* @kind font */
+  --t-h3-weight: 600; /* @kind font */
+  --t-h4-size: 16px;
+  --t-h4-lh: 1.35; /* @kind font */
+  --t-h4-weight: 600; /* @kind font */
+
+  /* ── Type roles · Body ─────────────────────────────────── */
+  --t-body-lg-size: 18px;
+  --t-body-lg-lh: 1.55; /* @kind font */
+  --t-body-size:    15px;
+  --t-body-lh:    1.55; /* @kind font */
+  --t-body-sm-size: 13px;
+  --t-body-sm-lh: 1.50; /* @kind font */
+  --t-caption-size: 11px;
+  --t-caption-lh: 1.40; /* @kind font */
+
+  /* ── Type roles · Mono / data ──────────────────────────── */
+  --t-mono-md-size: 14px;
+  --t-mono-md-lh: 1.20; /* @kind font */
+  --t-mono-sm-size: 12px;
+  --t-mono-sm-lh: 1.20; /* @kind font */
+  --t-mono-xs-size: 10px;
+  --t-mono-xs-lh: 1.20; /* @kind font */
+  --t-mono-tracking: 0.02em; /* @kind font */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Utility classes — consume tokens with a class instead of vars
+   ───────────────────────────────────────────────────────────── */
+.fa-display-1 { font-family: var(--ff-display); font-weight: var(--t-display-1-weight);
+  font-size: var(--t-display-1-size); line-height: var(--t-display-1-lh);
+  letter-spacing: var(--t-display-1-tracking); }
+.fa-display-2 { font-family: var(--ff-display); font-weight: var(--t-display-2-weight);
+  font-size: var(--t-display-2-size); line-height: var(--t-display-2-lh);
+  letter-spacing: var(--t-display-2-tracking); }
+
+.fa-h1 { font-family: var(--ff-sans); font-weight: var(--t-h1-weight);
+  font-size: var(--t-h1-size); line-height: var(--t-h1-lh); letter-spacing: var(--t-h1-tracking); }
+.fa-h2 { font-family: var(--ff-sans); font-weight: var(--t-h2-weight);
+  font-size: var(--t-h2-size); line-height: var(--t-h2-lh); letter-spacing: var(--t-h2-tracking); }
+.fa-h3 { font-family: var(--ff-sans); font-weight: var(--t-h3-weight);
+  font-size: var(--t-h3-size); line-height: var(--t-h3-lh); letter-spacing: var(--t-h3-tracking); }
+.fa-h4 { font-family: var(--ff-sans); font-weight: var(--t-h4-weight);
+  font-size: var(--t-h4-size); line-height: var(--t-h4-lh); }
+
+.fa-body-lg { font-family: var(--ff-sans); font-size: var(--t-body-lg-size); line-height: var(--t-body-lg-lh); }
+.fa-body    { font-family: var(--ff-sans); font-size: var(--t-body-size);    line-height: var(--t-body-lh); }
+.fa-body-sm { font-family: var(--ff-sans); font-size: var(--t-body-sm-size); line-height: var(--t-body-sm-lh); }
+.fa-caption { font-family: var(--ff-sans); font-size: var(--t-caption-size); line-height: var(--t-caption-lh); }
+
+.fa-mono-md { font-family: var(--ff-mono); font-size: var(--t-mono-md-size); line-height: var(--t-mono-md-lh); letter-spacing: var(--t-mono-tracking); }
+.fa-mono-sm { font-family: var(--ff-mono); font-size: var(--t-mono-sm-size); line-height: var(--t-mono-sm-lh); letter-spacing: var(--t-mono-tracking); }
+.fa-mono-xs { font-family: var(--ff-mono); font-size: var(--t-mono-xs-size); line-height: var(--t-mono-xs-lh); letter-spacing: var(--t-mono-tracking); text-transform: uppercase; }
+
+/* ─────────────────────────────────────────────────────────────
+   Reset bits — opt-in via .fa-reset
+   ───────────────────────────────────────────────────────────── */
+.fa-reset, .fa-reset *, .fa-reset *::before, .fa-reset *::after { box-sizing: border-box; }
+.fa-reset { margin: 0; padding: 0; }
+
+/* ─────────────────────────────────────────────────────────────
+   Light theme — opt in with [data-theme="light"] on <html> or any
+   ancestor. Robot UI stays dark; this is for documentation, reports,
+   marketing, and printable specs.
+
+   The strategy: keep the same token NAMES, retune them. Anything
+   that previously read white-on-dark now reads ink-on-paper. Brand
+   color (--c-signal) and status colors are unchanged.
+   ───────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  /* Surfaces — ink → paper inversion */
+  --c-void:        rgb(255, 255, 255);     /* True paper — never used as canvas */
+  --c-night:       rgb(248, 247, 244);     /* Brand surface (warm off-white) */
+  --c-ink:         rgb(255, 253, 248);     /* Card on paper                  */
+  --c-graphite:    rgb(244, 242, 236);     /* Raised on paper                */
+  --c-slate:       rgb(220, 217, 210);     /* Border / divider               */
+  --c-iron:        rgb(196, 192, 184);     /* Inactive control               */
+  --c-steel:       rgb(120, 116, 110);     /* Tertiary text                  */
+  --c-mist:        rgb(95, 92, 88);        /* Secondary text                 */
+  --c-fog:         rgb(74, 71, 68);        /* Body                           */
+  --c-bone:        rgb(40, 36, 50);        /* Heading text on paper          */
+
+  /* Light-side surfaces stay roughly the same but firmer */
+  --c-paper:       rgb(255, 253, 245);
+  --c-canvas:      rgb(244, 242, 236);
+  --c-rule:        rgb(220, 217, 210);
+  --c-line:        rgb(196, 192, 184);
+
+  /* Semantic — re-aimed at light surfaces */
+  --bg-page:       var(--c-night);
+  --bg-card:       var(--c-ink);
+  --bg-raised:     var(--c-graphite);
+  --bg-flush:      rgba(15, 12, 26, 0.04);
+  --bg-subtle:     rgba(15, 12, 26, 0.05);
+  --bd-hair:       rgba(15, 12, 26, 0.08);
+  --bd-soft:       rgba(15, 12, 26, 0.10);
+  --bd-rule:       rgba(15, 12, 26, 0.12);
+  --tx-1:          var(--t-on-light-1);
+  --tx-2:          var(--c-bone);
+  --tx-3:          var(--c-fog);
+  --tx-4:          var(--c-mist);
+  --tx-5:          var(--c-steel);
+
+  /* Type fg roles — flip the dark scale to light */
+  --t-on-dark-1:   rgb(15, 12, 26);
+  --t-on-dark-2:   rgba(15, 12, 26, 0.74);
+  --t-on-dark-3:   rgba(15, 12, 26, 0.55);
+  --t-on-dark-4:   rgba(15, 12, 26, 0.32);
+
+  /* Slightly tone down status tints so they don't blow out on paper */
+  --c-signal-tint: rgba(242, 107, 26, 0.12);
+  --c-alert-tint:  rgba(228, 77, 77, 0.10);
+  --c-warn-tint:   rgba(241, 168, 36, 0.14);
+  --c-ok-tint:     rgba(58, 168, 96, 0.14);
+  --c-violet-tint: rgba(140, 121, 240, 0.14);
+
+  /* Shadows — softer, neutral, never additive black on white */
+  --shadow-1: 0 1px 2px rgba(15, 12, 26, 0.06);
+  --shadow-2: 0 6px 18px rgba(15, 12, 26, 0.08);
+  --shadow-3: 0 18px 48px rgba(15, 12, 26, 0.12);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Light-mode patches for hardcoded white-on-dark rules in cards.
+   These are deliberately scoped to [data-theme="light"] so they
+   only kick in when the light theme is active.
+   ───────────────────────────────────────────────────────────── */
+[data-theme="light"] body {
+  background: var(--c-canvas) !important;
+}
+/* Re-tune any inline rgba(255,255,255,…) borders/fills to ink-on-paper */
+[data-theme="light"] [style*="rgba(255,255,255,0.03)"],
+[data-theme="light"] [style*="rgba(255,255,255,0.04)"] {
+  background-color: rgba(15, 12, 26, 0.035) !important;
+}
+[data-theme="light"] [style*="rgba(255,255,255,0.06)"],
+[data-theme="light"] [style*="rgba(255,255,255,0.07)"],
+[data-theme="light"] [style*="rgba(255,255,255,0.08)"],
+[data-theme="light"] [style*="rgba(255,255,255,0.10)"] {
+  border-color: rgba(15, 12, 26, 0.10) !important;
+}
+
+/* ── Brand wordmark ────────────────────────────────────────── */
+/* Keeps the Firefight wordmark in proper case even inside uppercased chrome. */
+.fa-wordmark { text-transform: none; }

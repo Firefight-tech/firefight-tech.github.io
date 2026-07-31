@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firefight — Real-time 3D maps from inside the fire</title>
+<meta name="description" content="Firefight equips firefighters with wearable smart sensors that track their position and build 3D maps in real time — automatic hazard and victim annotation, crew status tracking, and replayable insights for incident command.">
+<meta property="og:title" content="Firefight — Real-time 3D maps from inside the fire">
+<meta property="og:description" content="Wearable smart sensors for firefighters: live 3D mapping through smoke, automatic victim and hazard detection, and a real-time command picture.">
+<meta property="og:image" content="assets/img/hero.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Roboto+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#top" aria-label="Firefight home">
+      <img src="assets/firefight-wordmark.svg" alt="Firefight">
+    </a>
+    <div class="nav-links">
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#results">Results</a>
+      <a href="#team">Team</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────── -->
+<header class="hero" id="top">
+  <div class="hero-bg" role="img" aria-label="Firefighters wearing sensor payloads inside a smoke-filled building, with a live 3D map of the structure"></div>
+  <div class="wrap hero-content">
+    <div class="eyebrow">Wearable sensing for structural firefighting</div>
+    <h1>See through the fire.<br><em>Command with certainty.</em></h1>
+    <p>
+      Firefight equips firefighters with smart sensors that track where they are and
+      map the building in real time — through smoke, through walls, in zero visibility.
+      Victims and hazards are flagged automatically. Command sees everything, live.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#demo">Try the live demo</a>
+      <a class="btn btn-ghost" href="#results">See field results</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Interactive prototype ────────────────── -->
+<section class="demo" id="demo">
+  <div class="wrap">
+    <div class="eyebrow">Interactive prototype</div>
+    <h2>The fireground, on one tablet.</h2>
+    <p class="section-intro">
+      This is a working prototype of the Firefight command tablet — the incident
+      commander's live view of the structure, the crew, and every point of interest.
+      It's interactive: orbit the 3D map, switch floors, tap a firefighter or a victim
+      marker, and scrub back through the timeline.
+    </p>
+    <div class="demo-frame-outer">
+      <div class="demo-chrome">
+        <span class="demo-dot"></span>
+        <span>Fireground command · live prototype</span>
+        <a href="prototype/" target="_blank" rel="noopener">Open full screen ↗</a>
+      </div>
+      <div class="demo-stage" id="demo-stage">
+        <iframe src="prototype/" title="Firefight command tablet interactive prototype" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="demo-hint">DRAG TO ORBIT · SCROLL TO ZOOM · TAP TO INSPECT · BEST ON A LARGE SCREEN</div>
+  </div>
+</section>
+
+<!-- ── Problem stats ────────────────────────── -->
+<section class="stats" id="why">
+  <div class="wrap">
+    <div class="eyebrow">Why it matters</div>
+    <h2>The first minutes decide everything.<br>Today they're spent blind.</h2>
+    <p class="section-intro">
+      Crews conducting primary search can sense only as far as they can reach.
+      Outside, incident commanders coordinate with no reliable picture of the interior
+      layout or where their people are. Firefight closes that gap.
+    </p>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="num">2,890</div>
+        <div class="label">US residential fire deaths in 2023</div>
+      </div>
+      <div class="stat">
+        <div class="num">$11<em>B</em>+</div>
+        <div class="label">Annual residential fire property loss</div>
+      </div>
+      <div class="stat">
+        <div class="num">Arm's <em>length</em></div>
+        <div class="label">Effective sensing range in dense smoke</div>
+      </div>
+      <div class="stat">
+        <div class="num">0</div>
+        <div class="label">Live interior maps available to command today</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ─────────────────────────── -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>No robots. No new workflow.<br>The crew is the platform.</h2>
+    <p class="section-intro">
+      Firefight is human-centric by design: the sensors ride on the gear firefighters
+      already wear, so there's nothing extra to deploy and nothing new to learn.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01 / WEAR</div>
+        <h3>Smart sensors on standard gear</h3>
+        <p>
+          A rugged payload quick-mounts to the SCBA harness: thermal stereo cameras,
+          radar, and inertial sensing, with onboard AI compute. It sees structure,
+          heat, and people where eyes and RGB cameras fail.
+        </p>
+      </div>
+      <div class="step">
+        <div class="n">02 / MAP</div>
+        <h3>3D mapping through smoke &amp; walls</h3>
+        <p>
+          Onboard thermal SLAM builds the map as the crew moves, then streams compact
+          updates through concrete walls over a 915&nbsp;MHz long-range link — no
+          infrastructure in the building required.
+        </p>
+      </div>
+      <div class="step">
+        <div class="n">03 / COMMAND</div>
+        <h3>One live picture for command</h3>
+        <p>
+          The command station fuses every crew member into a single, consistent 3D map:
+          live positions, victims, hazards, and exits — with navigation guidance and a
+          replayable record of the whole operation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Capabilities ─────────────────────────── -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="eyebrow">Capabilities</div>
+    <h2>Built for the moments that matter.</h2>
+    <div class="caps">
+
+      <div class="cap">
+        <div class="cap-media">
+          <img src="assets/img/human-detection.jpg" alt="Thermal camera frames showing people automatically detected and outlined through dense smoke" loading="lazy">
+        </div>
+        <div>
+          <h3>Automatic victim &amp; hazard annotation</h3>
+          <p>
+            Thermal AI detects people through dense smoke — different poses, partial
+            visibility, full turnout gear — and pins them on the shared map, along
+            with hot spots, openings, and structural hazards. Search faster; miss less.
+          </p>
+          <div class="proof">6 of 6 humans detected in a smoke-filled test, even under partial visibility.</div>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div class="cap-media">
+          <img src="assets/img/command-concept.jpg" alt="Incident command display showing two annotated floor plans with firefighter positions, victims, and heat overlay" loading="lazy">
+        </div>
+        <div>
+          <h3>Firefighter status tracking</h3>
+          <p>
+            Every crew member is localized continuously inside the structure — floor,
+            room, heading — without GPS or pre-installed beacons. On a Mayday, command
+            dispatches rescue to an exact location, not a verbal guess.
+          </p>
+          <div class="proof">0.18&nbsp;m localization accuracy in live-burn facility testing — 5× tighter than the 1&nbsp;m requirement.</div>
+        </div>
+      </div>
+
+      <div class="cap">
+        <div class="cap-media">
+          <img src="assets/img/pointcloud.jpg" alt="Live 3D point-cloud map with the firefighter's optimized trajectory drawn through it" loading="lazy">
+        </div>
+        <div>
+          <h3>Replayable insights</h3>
+          <p>
+            Every operation is captured as a full 3D record: where crews moved, what
+            they saw, when each decision landed. Scrub the timeline for after-action
+            review, training, and investigation — evidence instead of recollection.
+          </p>
+          <div class="proof">Full-mission 3D map + trajectory exported as standard artifacts after every session.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Results ──────────────────────────────── -->
+<section class="results" id="results">
+  <div class="wrap">
+    <div class="eyebrow">Proven in the field</div>
+    <h2>Tested where it counts — at the fire academy.</h2>
+    <p class="section-intro">
+      Firefight's core technology has been validated end-to-end in concrete live-burn
+      training structures at the Allegheny County Fire Academy, and in real residential
+      fire data collections with firefighters.
+    </p>
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="num">0.18 m</div>
+        <div class="what">Localization accuracy</div>
+        <div class="how">Trajectory error in a concrete burn building — target was 1 m</div>
+      </div>
+      <div class="metric">
+        <div class="num">15 Mbps</div>
+        <div class="what">Through-wall bandwidth</div>
+        <div class="how">Average over 915 MHz through multiple concrete walls — 7× the target</div>
+      </div>
+      <div class="metric">
+        <div class="num">6 / 6</div>
+        <div class="what">Victims found through smoke</div>
+        <div class="how">Thermal human detection in a dense-smoke indoor search test</div>
+      </div>
+      <div class="metric">
+        <div class="num">100%</div>
+        <div class="what">Onboard, untethered</div>
+        <div class="how">All perception runs on wearable edge compute with a standard power-tool battery</div>
+      </div>
+    </div>
+
+    <div class="video-grid">
+      <div class="video" data-yt="XzgGy22tvHU">
+        <img src="https://i.ytimg.com/vi/XzgGy22tvHU/hqdefault.jpg" alt="Video: real-time thermal SLAM mapping demo" loading="lazy">
+        <span class="play"></span>
+        <span class="vtitle">Thermal SLAM — live 3D mapping</span>
+      </div>
+      <div class="video" data-yt="fGh0QKgVXK8">
+        <img src="https://i.ytimg.com/vi/fGh0QKgVXK8/hqdefault.jpg" alt="Video: visual-inertial odometry tracking demo" loading="lazy">
+        <span class="play"></span>
+        <span class="vtitle">MAC-VIO — tracking in the dark</span>
+      </div>
+      <div class="video" data-yt="kh6iXWoaE5E">
+        <img src="https://i.ytimg.com/vi/kh6iXWoaE5E/hqdefault.jpg" alt="Video: aerial scout system demonstration in smoke" loading="lazy">
+        <span class="play"></span>
+        <span class="vtitle">SMoRes — mapping through smoke</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Team / heritage ──────────────────────── -->
+<section id="team">
+  <div class="wrap">
+    <div class="eyebrow">The team</div>
+    <h2>Born at Carnegie Mellon Robotics.</h2>
+    <p class="section-intro">
+      Firefight builds on two generations of research at Carnegie Mellon's Robotics
+      Institute — from an aerial scout that maps through smoke to wearable payloads
+      that turn every firefighter into a mapping platform.
+    </p>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="assets/img/team-smores.jpg" alt="The SMoRes team with their drone at the Allegheny County Fire Academy" loading="lazy">
+        <div class="team-body">
+          <div class="tag">2025 · Aerial reconnaissance</div>
+          <h3>SMoRes</h3>
+          <p>
+            A drone that searches while modeling perceptually degraded environments:
+            dense depth from thermal stereo, onboard odometry and mapping, human
+            detection through smoke, and autonomous flight — all computed onboard.
+          </p>
+          <div class="names">Abhishek Iyer · Amy Jiang · Aayush Fadia · Ranai Srivastav · Swastik Mahapatra</div>
+          <a href="https://mrsdprojects.ri.cmu.edu/2025teamg/" target="_blank" rel="noopener">Project site ↗</a>
+        </div>
+      </div>
+      <div class="team-card">
+        <img class="fit-natural" src="assets/img/team-firesense.jpg" alt="Headshots of the five FireSense team members" loading="lazy">
+        <div class="team-body">
+          <div class="tag">2026 · Wearable payloads</div>
+          <h3>FireSense</h3>
+          <p>
+            Shoulder-mounted sensing payloads and a collaborative SLAM command station:
+            thermal visual-inertial odometry, multi-firefighter map fusion, and
+            through-wall communications — validated at the fire academy.
+          </p>
+          <div class="names">Jerry Hou · Tina Hsu · Robert Kerwin · Prakhar Mishra · Joy Yang</div>
+          <a href="https://mrsdprojects.ri.cmu.edu/2026teamf/" target="_blank" rel="noopener">Project site ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ──────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Bring live maps to your fireground.</h2>
+    <p>
+      We're working with fire departments and training academies to pilot the system.
+      If you want a demo — or want to help shape what incident command sees next —
+      we'd love to talk.
+    </p>
+    <a class="btn btn-primary" href="mailto:ajong@andrew.cmu.edu?subject=Firefight%20demo">Request a demo</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <img src="assets/firefight-wordmark.svg" alt="Firefight">
+    <span class="credit">© 2026 Firefight.tech · Technology developed at the CMU Robotics Institute MRSD program</span>
+  </div>
+</footer>
+
+<script>
+// Scale the fixed-size (1280x800) prototype iframe to fit its container.
+(function () {
+  var stage = document.getElementById("demo-stage");
+  var frame = stage.querySelector("iframe");
+  var W = 1280, H = 800;
+  function fit() {
+    var w = stage.clientWidth;
+    var s = w / W;
+    frame.style.transform = "scale(" + s + ")";
+    stage.style.height = (H * s) + "px";
+  }
+  window.addEventListener("resize", fit);
+  fit();
+})();
+
+// Click-to-play YouTube embeds (keeps the page fast until a video is opened).
+document.querySelectorAll(".video").forEach(function (el) {
+  el.addEventListener("click", function () {
+    var id = el.dataset.yt;
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+    iframe.title = el.querySelector(".vtitle").textContent;
+    iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+    iframe.allowFullscreen = true;
+    el.innerHTML = "";
+    el.appendChild(iframe);
+  }, { once: true });
+});
+</script>
+
+</body>
+</html>

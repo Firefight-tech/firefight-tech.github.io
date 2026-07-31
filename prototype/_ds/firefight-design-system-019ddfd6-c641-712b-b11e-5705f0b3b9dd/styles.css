@@ -1,0 +1,14 @@
+/* ─────────────────────────────────────────────────────────────
+   Firefight Design System — entry point
+   Link this single file in any consuming page; it pulls in the
+   core tokens and the shared card shell.
+
+   • colors_and_type.css — all design tokens + type utilities
+   • card-shell.css      — shared review-card layout shell
+
+   The blue remix (theme-blue.css) is an OPT-IN override — import
+   it AFTER this file only when you want the blue signal family.
+   ───────────────────────────────────────────────────────────── */
+
+@import url('colors_and_type.css');
+@import url('card-shell.css');
