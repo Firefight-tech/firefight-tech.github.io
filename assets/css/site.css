@@ -15,9 +15,9 @@
   --c-fog: #a0a0a0;
   --c-bone: #d9d9d9;
 
-  --c-signal: #f26b1a;
-  --c-signal-hi: #ff8a3d;
-  --c-signal-tint: rgba(242, 107, 26, 0.12);
+  --c-signal: #ef5b0c; /* brand orange from assets/logos */
+  --c-signal-hi: #ff7c33;
+  --c-signal-tint: rgba(239, 91, 12, 0.12);
   --c-alert: #e5484d;
 
   --ff-display: "Manrope", system-ui, -apple-system, sans-serif;
@@ -100,7 +100,9 @@ h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.15; mar
   gap: 28px;
 }
 
-.nav-logo img { height: 16px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo .mark { height: 28px; }
+.nav-logo .word { height: 13px; }
 
 .nav-links {
   display: flex;
@@ -494,7 +496,8 @@ footer {
   flex-wrap: wrap;
 }
 
-.foot-inner img { height: 13px; opacity: 0.85; }
+.foot-inner img { height: 12px; opacity: 0.85; }
+.foot-inner .foot-mark { height: 22px; }
 
 .foot-inner .credit {
   margin-left: auto;
