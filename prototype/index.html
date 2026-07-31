@@ -216,6 +216,7 @@ class Component extends DCLogic {
       { id:'a9', f:2, x:9, y:11, t:39, type:'window', short:'VENTED', note:'North window taken for horizontal ventilation.', by:'L3-B' },
       { id:'a11', f:2, x:12, y:2.5, t:43, type:'door', short:'DOOR OPEN', note:'Bedroom 2 door forced.', by:'E11-A' },
       { id:'a10', f:2, x:10.5, y:2, t:45, type:'victim', short:'VICTIM', note:'Adult, responsive. Thermal signature confirmed. Extraction via stair A.', by:'E11-A' },
+      { id:'a16', f:3, x:2.5, y:9.3, t:78, type:'fire', short:'FIRE SPREAD', note:'Vertical extension to F3 west via floor void. Structure going defensive — expedite egress.', by:'L3-B' },
       { id:'a12', f:3, x:13, y:3, t:59, type:'clutter', short:'CLUTTER', note:'Stored materials, east room.', by:'L3-A' },
       { id:'a13', f:3, x:8, y:0, t:65, type:'window', short:'WINDOW CLOSED', note:'South dormer, intact.', by:'L3-A' }
     ];
@@ -231,6 +232,7 @@ class Component extends DCLogic {
       { t:60, sev:'info', text:'Victim extraction in progress via stair A — E11-A.', ref:{type:'ff',id:'M'} },
       { t:68, sev:'alert', text:'MAYDAY — L3-A OKAFOR. No motion 15 s, F3 center. RIT activated.', ref:{type:'ff',id:'O'} },
       { t:76, sev:'ok', text:'L3-B reached L3-A — conscious, entangled. Extricating.', ref:{type:'ff',id:'O'} },
+      { t:78, sev:'alert', text:'Fire extension — F3 west via floor void. All crews expedite egress.', ref:{type:'a',id:'a16'} },
       { t:84, sev:'ok', text:'Victim clear of structure. Handed to EMS.', ref:{type:'ff',id:'M'} }
     ];
     this.furn = [
@@ -251,8 +253,9 @@ class Component extends DCLogic {
       { f:2, x:14, y:3, dir:'y', t:26 }, { f:2, x:12, y:2.5, dir:'y', t:43 }, { f:3, x:14, y:3, dir:'y', t:52 }
     ];
     this.fires = [
-      { f:1, x:1.6, y:9.4, t:22, r0:1.5, r1:2.7, tEnd:80 },
-      { f:2, x:2.5, y:9.2, t:48, r0:0.9, r1:2.0, tEnd:90 }
+      { f:1, x:1.6, y:9.4, t:22, r0:1.5, r1:4.3, tEnd:88 },
+      { f:2, x:2.5, y:9.2, t:48, r0:0.9, r1:3.6, tEnd:90 },
+      { f:3, x:2.5, y:9.3, t:78, r0:0.7, r1:1.7, tEnd:90 }
     ];
     this.wins = [
       { f:1, x:0, y:5, dir:'y', t:13 }, { f:1, x:12, y:11, dir:'x', t:34 },
@@ -462,7 +465,8 @@ class Component extends DCLogic {
       };
       for (const fu of this.furn) {
         if (fu.f !== f) continue;
-        const k = (fu.rt == null || fu.rt > t) ? 0.12 : Math.min(1, 0.12 + (t - fu.rt) / 1.5);
+        if (fu.rt == null || fu.rt > t) continue;
+        const k = Math.min(1, (t - fu.rt) / 1.5);
         box(fu.x, fu.y, fu.w, fu.d, fu.h, fu.zo || 0, k);
       }
       // doors (swing arc + leaf)
@@ -554,7 +558,8 @@ class Component extends DCLogic {
         const base = P(p.x, p.y, zc), head = P(p.x, p.y, zc+1.7);
         const isSel = sel && sel.type==='ff' && sel.id===ff.id;
         const mayday = ff.id==='O' && t >= 68;
-        const col = mayday ? C.alert : (isSel ? C.signal : dotCol);
+        const o2v = this.o2Of(ff, t);
+        const col = mayday ? C.alert : (o2v > 50 ? C.ok : o2v > 25 ? C.warn : C.alert);
         ctx.strokeStyle = `rgba(${INK},${0.3*aF})`; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(...base); ctx.lineTo(...head); ctx.stroke();
         if (mayday && aF > 0.1) {
@@ -702,7 +707,7 @@ class Component extends DCLogic {
         const dy2 = e.clientY - this.drag.y;
         if (Math.abs(dx) + Math.abs(dy2) > 5) this.drag.moved = true;
         if (this.drag.moved) {
-          this.yaw += dx * 0.006;
+          this.yaw -= dx * 0.006;
           this.pitch = Math.max(0.15, Math.min(1.45, this.pitch + dy2 * 0.005));
           this.drag.x = e.clientX; this.drag.y = e.clientY;
         }
