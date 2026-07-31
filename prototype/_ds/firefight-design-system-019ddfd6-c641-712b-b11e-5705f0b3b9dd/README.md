@@ -23,7 +23,7 @@ Confident, technical, plainspoken. Verbs first. Specific numbers over adjectives
 ### What we say (and don't)
 | Use | Avoid |
 |---|---|
-| the model · the model (capitalized) | "the model" / "our AI" |
+| Product names (capitalized) | "the model" / "our AI" |
 | Operator | User |
 | Mission | Job, run, task |
 | Site / Floor / Zone (in order) | Location, area, place |
@@ -40,7 +40,7 @@ revolutionary · game-changing · cutting-edge · unleash · empower · seamless
 ### Punctuation
 - Em-dashes for asides, en-dashes for ranges, hyphens for compounds.
 - No exclamation marks in product copy.
-- Sentence case for everything except proper nouns (Firefight, the model, DroneDeploy).
+- Sentence case for everything except proper nouns (Firefight, DroneDeploy).
 - Oxford comma, always.
 
 ---
