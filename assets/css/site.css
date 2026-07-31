@@ -473,6 +473,59 @@ h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.15; mar
 
 .team-body a { font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.05em; }
 
+/* ── Advisors ─────────────────────────────── */
+
+.advisors { margin-top: 64px; }
+
+.advisors-label {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-mist);
+  margin-bottom: 24px;
+}
+
+.advisors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.advisor {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid var(--bd-hair);
+  border-radius: var(--r-md);
+  background: var(--c-ink);
+  padding: 20px 24px;
+}
+
+.advisor img {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--c-slate);
+}
+
+.advisor h3 { font-size: 18px; margin-bottom: 4px; }
+
+.advisor .role {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--c-mist);
+}
+
+.advisors-affil {
+  margin-top: 20px;
+  font-family: var(--ff-mono);
+  font-size: 13px;
+  color: var(--c-fog);
+}
+
 /* ── Contact / footer ─────────────────────── */
 
 .contact { text-align: center; }
