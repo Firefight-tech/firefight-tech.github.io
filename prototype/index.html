@@ -381,8 +381,9 @@ class Component extends DCLogic {
       const [u,v] = this.projU(x,y,z,cy,sy,cp,sp);
       mnx=Math.min(mnx,u);mny=Math.min(mny,v);mxx=Math.max(mxx,u);mxy=Math.max(mxy,v);
     }
-    const s = Math.min((cw-140)/(mxx-mnx), (ch-90)/(mxy-mny)) * this.zoom;
-    const ox = cw/2 - (mnx+mxx)/2*s + 20, oy = ch/2 - (mny+mxy)/2*s;
+    const ex = Math.max(Math.abs(mnx), Math.abs(mxx)), ey = Math.max(Math.abs(mny), Math.abs(mxy));
+    const s = Math.min((cw-140)/(2*ex), (ch-90)/(2*ey)) * this.zoom;
+    const ox = cw/2 + 20, oy = ch/2;
     const P = (x,y,z) => { const [u,v] = this.projU(x,y,z,cy,sy,cp,sp); return [u*s+ox, v*s+oy]; };
     this.hits = [];
     const C = { signal:'#F26B1A', alert:'#E44D4D', warn:'#F1A824', ok:'#3AA860', bone:'#D9D9D9', fog:'#A0A0A0' };
