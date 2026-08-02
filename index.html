@@ -363,21 +363,6 @@
 </footer>
 
 <script>
-// Scale the fixed-size (1280x800) prototype iframe to fit its container.
-(function () {
-  var stage = document.getElementById("demo-stage");
-  var frame = stage.querySelector("iframe");
-  var W = 1280, H = 800;
-  function fit() {
-    var w = stage.clientWidth;
-    var s = w / W;
-    frame.style.transform = "scale(" + s + ")";
-    stage.style.height = (H * s) + "px";
-  }
-  window.addEventListener("resize", fit);
-  fit();
-})();
-
 // Click-to-play YouTube embeds (keeps the page fast until a video is opened).
 document.querySelectorAll(".video").forEach(function (el) {
   el.addEventListener("click", function () {

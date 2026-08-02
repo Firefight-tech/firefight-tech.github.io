@@ -230,15 +230,13 @@ h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.15; mar
 
 .demo-chrome a { margin-left: auto; font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.06em; }
 
-.demo-stage { position: relative; width: 100%; overflow: hidden; }
+.demo-stage { width: 100%; }
 
 .demo-stage iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 1280px;
-  height: 800px;
+  display: block;
+  width: 100%;
+  height: clamp(480px, 72vh, 800px);
   border: 0;
-  transform-origin: 0 0;
 }
 
 .demo-hint {

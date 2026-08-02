@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="_ds/firefight-design-system-019ddfd6-c641-712b-b11e-5705f0b3b9dd/colors_and_type.css">
   <link rel="stylesheet" href="_ds/firefight-design-system-019ddfd6-c641-712b-b11e-5705f0b3b9dd/styles.css">
   <script src="_ds/firefight-design-system-019ddfd6-c641-712b-b11e-5705f0b3b9dd/_ds_bundle.js"></script>
@@ -23,17 +24,17 @@
     ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.14);border-radius:3px}::-webkit-scrollbar-track{background:transparent}
   </style>
 </helmet>
-<div style="width:100vw;height:100vh;min-width:1080px;min-height:700px;background:var(--c-void);color:var(--t-on-dark-1);font-family:var(--ff-sans);display:flex;flex-direction:column;user-select:none">
+<div style="width:100vw;height:100vh;min-width:0;min-height:0;background:var(--c-void);color:var(--t-on-dark-1);font-family:var(--ff-sans);display:flex;flex-direction:column;user-select:none">
 
   <div style="height:50px;flex:0 0 50px;display:flex;align-items:center;gap:16px;padding:0 16px;border-bottom:1px solid var(--bd-soft);background:var(--c-void)">
     <div style="display:flex;align-items:baseline;gap:10px">
       <img src="assets/firefight-wordmark.svg" alt="Firefight" style="height:15px;display:block;align-self:center">
       <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.08em;color:var(--tx-4);text-transform:uppercase">Fireground command</span>
     </div>
-    <div style="width:1px;height:20px;background:var(--bd-rule)"></div>
-    <div style="font-family:var(--ff-mono);font-size:11px;letter-spacing:0.04em;color:var(--tx-3);text-transform:uppercase">1420 Alder St&nbsp;&nbsp;/&nbsp;&nbsp;Structure A&nbsp;&nbsp;/&nbsp;&nbsp;Residential · 3 story</div>
+    <div style="width:1px;height:20px;background:var(--bd-rule);display:{{bcDisp}}"></div>
+    <div style="font-family:var(--ff-mono);font-size:11px;letter-spacing:0.04em;color:var(--tx-3);text-transform:uppercase;display:{{bcDisp}}">1420 Alder St&nbsp;&nbsp;/&nbsp;&nbsp;Structure A&nbsp;&nbsp;/&nbsp;&nbsp;Residential · 3 story</div>
     <div style="flex:1"></div>
-    <div style="display:flex;align-items:center;gap:8px;padding:4px 10px;border:1px solid var(--bd-soft);border-radius:var(--r-sm);background:var(--bg-flush)">
+    <div style="display:{{liveDisp}};align-items:center;gap:8px;padding:4px 10px;border:1px solid var(--bd-soft);border-radius:var(--r-sm);background:var(--bg-flush)">
       <span style="width:7px;height:7px;border-radius:50%;background:{{liveDotColor}};animation:faPulse 1.6s infinite"></span>
       <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.08em;color:var(--tx-3)">{{liveLabel}}</span>
     </div>
@@ -58,9 +59,9 @@
     </div>
   </sc-if>
 
-  <div style="flex:1;display:flex;min-height:0">
+  <div style="flex:1;display:flex;flex-direction:{{mainDir}};min-height:0">
     <div ref="{{wrapRef}}" style="flex:1;position:relative;min-width:0;background:radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.028), transparent 65%)">
-      <canvas ref="{{canvasRef}}" onPointerDown="{{onPD}}" onPointerMove="{{onPM}}" onPointerUp="{{onPU}}" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab"></canvas>
+      <canvas ref="{{canvasRef}}" onPointerDown="{{onPD}}" onPointerMove="{{onPM}}" onPointerUp="{{onPU}}" onPointerCancel="{{onPC}}" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab"></canvas>
 
       <div style="position:absolute;top:14px;left:14px;display:flex;flex-direction:column;gap:6px">
         <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.1em;color:var(--tx-5);text-transform:uppercase;padding-left:2px">Floor</div>
@@ -69,7 +70,7 @@
         </sc-for>
       </div>
 
-      <div style="position:absolute;bottom:14px;left:14px;display:flex;gap:14px;align-items:center;padding:8px 12px;border:1px solid var(--bd-hair);border-radius:var(--r-sm);background:rgba(0,0,0,0.55);backdrop-filter:blur(4px)">
+      <div style="position:absolute;bottom:14px;left:14px;display:{{legendDisp}};gap:14px;align-items:center;padding:8px 12px;border:1px solid var(--bd-hair);border-radius:var(--r-sm);background:rgba(0,0,0,0.55);backdrop-filter:blur(4px)">
         <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--tx-1)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">CREW</span></div>
         <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--c-signal)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">FIRE / HEAT</span></div>
         <div style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:var(--c-alert)"></span><span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;color:var(--tx-3)">VICTIM / HAZARD</span></div>
@@ -80,7 +81,7 @@
       </div>
 
       <sc-if value="{{selShow}}" hint-placeholder-val="{{false}}">
-        <div style="position:absolute;top:14px;right:14px;width:264px;background:var(--bg-card);border:1px solid var(--bd-soft);border-radius:var(--r-md);box-shadow:var(--shadow-2);padding:14px;display:flex;flex-direction:column;gap:10px">
+        <div style="position:absolute;top:14px;right:14px;width:min(264px, calc(100% - 28px));background:var(--bg-card);border:1px solid var(--bd-soft);border-radius:var(--r-md);box-shadow:var(--shadow-2);padding:14px;display:flex;flex-direction:column;gap:10px">
           <div style="display:flex;align-items:center;gap:8px">
             <span style="width:8px;height:8px;border-radius:50%;background:{{selColor}}"></span>
             <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.1em;color:var(--tx-4);text-transform:uppercase;flex:1">{{selEyebrow}}</span>
@@ -102,14 +103,14 @@
       </sc-if>
     </div>
 
-    <div style="flex:0 0 316px;border-left:1px solid var(--bd-soft);display:flex;flex-direction:column;min-height:0;background:rgba(255,255,255,0.015)">
+    <div style="flex:{{railFlex}};border-left:{{railBL}};border-top:{{railBT}};display:flex;flex-direction:column;min-height:0;min-width:0;background:rgba(255,255,255,0.015)">
       <div style="display:flex;align-items:center;gap:8px;padding:12px 14px 8px">
         <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.1em;color:var(--tx-3);text-transform:uppercase;flex:1">Crew · 4</span>
         <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.08em;padding:3px 8px;border-radius:var(--r-pill);background:{{parBg}};color:{{parColor}}">{{parLabel}}</span>
       </div>
-      <div style="display:flex;flex-direction:column;gap:8px;padding:0 14px">
+      <div style="display:flex;flex-direction:{{rosterDir}};gap:8px;padding:0 14px 2px;overflow-x:auto">
         <sc-for list="{{roster}}" as="r" hint-placeholder-count="4">
-          <div onClick="{{r.select}}" style="background:var(--bg-card);border:1px solid {{r.bd}};border-radius:var(--r-md);padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:7px" style-hover="border-color:rgba(255,255,255,0.22)">
+          <div onClick="{{r.select}}" style="background:var(--bg-card);border:1px solid {{r.bd}};border-radius:var(--r-md);padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:7px;min-width:{{rosterCardMin}};flex-shrink:0" style-hover="border-color:rgba(255,255,255,0.22)">
             <div style="display:flex;align-items:center;gap:8px">
               <span style="font-family:var(--ff-mono);font-size:10px;font-weight:700;letter-spacing:0.05em;padding:2px 6px;border-radius:var(--r-xs);background:var(--bg-raised);color:var(--tx-2)">{{r.unit}}</span>
               <span style="font-size:13px;font-weight:600;flex:1">{{r.name}}</span>
@@ -164,8 +165,21 @@
       </div>
       <input id="scrub" type="range" min="0" max="90" step="0.05" value="{{scrubVal}}" onChange="{{onScrub}}" style="background:{{scrubBg}}">
     </div>
-    <span style="font-family:var(--ff-mono);font-size:12px;color:var(--tx-4)">T+30:00</span>
-    <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.06em;color:var(--tx-4);padding:3px 8px;border:1px solid var(--bd-hair);border-radius:var(--r-sm)">{{speedLabel}}</span>
+    <span style="font-family:var(--ff-mono);font-size:12px;color:var(--tx-4);display:{{durDisp}}">T+30:00</span>
+    <div style="position:relative">
+      <button onClick="{{onSpeedMenu}}" style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.06em;color:var(--tx-3);padding:3px 8px;border:1px solid var(--bd-hair);border-radius:var(--r-sm);background:transparent;cursor:pointer;min-width:44px" style-hover="color:var(--tx-1);border-color:var(--bd-rule)">{{speedLabel}}</button>
+      <sc-if value="{{speedMenuShow}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;bottom:calc(100% + 8px);right:0;background:var(--bg-card);border:1px solid var(--bd-soft);border-radius:var(--r-sm);box-shadow:var(--shadow-2);padding:4px;display:flex;flex-direction:column;gap:2px;min-width:88px;z-index:10">
+          <div style="font-family:var(--ff-mono);font-size:8px;letter-spacing:0.1em;color:var(--tx-5);text-transform:uppercase;padding:4px 8px 2px">Speed</div>
+          <sc-for list="{{speedOpts}}" as="sp" hint-placeholder-count="5">
+            <button onClick="{{sp.set}}" style="display:flex;align-items:center;gap:8px;padding:5px 8px;border:none;border-radius:var(--r-xs);background:{{sp.bg}};color:{{sp.color}};font-family:var(--ff-mono);font-size:11px;cursor:pointer;text-align:left" style-hover="background:var(--bg-raised)">
+              <span style="flex:1">{{sp.label}}</span>
+              <span style="font-size:9px;color:var(--c-signal)">{{sp.check}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
   </div>
 </div>
 </x-dc>
@@ -174,7 +188,8 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.DUR = 90; this.TSCALE = 20; // 1 sim s = 20 mission s → 30:00 total
-    this.state = { playing: true, sel: null, iso: 0, ack: false, evac: false, uiTick: 0 };
+    this.state = { playing: true, sel: null, iso: 0, ack: false, evac: false, uiTick: 0, vw: (typeof window !== 'undefined' ? window.innerWidth : 1280) };
+    this.ptrs = new Map(); this.pinchD = null;
     this.simT = 0; this.yaw = -0.62; this.pitch = 0.62; this.zoom = 1;
     this.canvasRef = React.createRef(); this.wrapRef = React.createRef();
     this.hits = []; this.drag = null;
@@ -184,7 +199,7 @@ class Component extends DCLogic {
   build() {
     const per = [[0,0,18,0],[18,0,18,11],[18,11,0,11],[0,11,0,0]];
     this.walls = {
-      1: per.map(w => w.slice()).concat([[7,0,7,4],[7,7,7,11],[0,6,5,6],[14,0,14,4],[14,4,18,4],[12,6,12,11]]),
+      1: per.map(w => w.slice()).concat([[7,0,7,5.05],[7,5.95,7,11],[0,6,5,6],[14,0,14,4],[14,4,18,4],[12,6,12,11]]),
       2: per.map(w => w.slice()).concat([[4,4.5,14,4.5],[4,6.5,14,6.5],[7,0,7,4.5],[12,0,12,4.5],[7,6.5,7,11],[12,6.5,12,11],[14,0,14,4],[14,4,18,4]]),
       3: per.map(w => w.slice()).concat([[9,0,9,6],[4,6,4,11],[14,0,14,4],[14,4,18,4]])
     };
@@ -334,10 +349,12 @@ class Component extends DCLogic {
       };
       cv.addEventListener('wheel', this._onWheel, { passive: false });
     }
+    this._onRes = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._onRes);
     let last = performance.now();
     const loop = (now) => {
       const dt = Math.min(0.1, (now - last) / 1000); last = now;
-      const speed = this.props.simSpeed ?? 1;
+      const speed = this.state.speedOv ?? this.props.simSpeed ?? 1;
       if (this.state.playing && this.simT < this.DUR) {
         this.simT = Math.min(this.DUR, this.simT + dt * speed);
         if (this.simT >= this.DUR) this.setState({ playing: false });
@@ -352,6 +369,7 @@ class Component extends DCLogic {
     cancelAnimationFrame(this._raf);
     const cv = this.canvasRef.current;
     if (cv && this._onWheel) cv.removeEventListener('wheel', this._onWheel);
+    if (this._onRes) window.removeEventListener('resize', this._onRes);
   }
 
   projU(x, y, z, cy, sy, cp, sp) {
@@ -693,7 +711,18 @@ class Component extends DCLogic {
       }
     }
     const pct = (t / this.DUR * 100).toFixed(2);
+    const narrow = st.vw < 760, mid = st.vw < 1080;
     return {
+      bcDisp: mid ? 'none' : 'block',
+      liveDisp: narrow ? 'none' : 'flex',
+      legendDisp: narrow ? 'none' : 'flex',
+      durDisp: narrow ? 'none' : 'inline',
+      mainDir: narrow ? 'column' : 'row',
+      railFlex: narrow ? '0 0 252px' : (mid ? '0 0 268px' : '0 0 316px'),
+      railBL: narrow ? 'none' : '1px solid var(--bd-soft)',
+      railBT: narrow ? '1px solid var(--bd-soft)' : 'none',
+      rosterDir: narrow ? 'row' : 'column',
+      rosterCardMin: narrow ? '238px' : '0',
       clock: this.fmt(t),
       liveLabel: t >= this.DUR ? 'REPLAY' : 'LIVE · 4 SENSORS',
       liveDotColor: t >= this.DUR ? 'var(--c-steel)' : 'var(--c-ok)',
@@ -702,7 +731,20 @@ class Component extends DCLogic {
       onReplay: () => { this.simT = 0; this.setState({ playing: true, ack: false, sel: null }); },
       scrubVal: t, scrubBg: `linear-gradient(90deg, var(--c-signal) ${pct}%, rgba(255,255,255,0.12) ${pct}%)`,
       onScrub: (e) => { this.simT = parseFloat(e.target.value); this.forceUpdate(); },
-      speedLabel: ((this.props.simSpeed ?? 1).toFixed(1)) + '×',
+      speedLabel: ((st.speedOv ?? this.props.simSpeed ?? 1).toFixed(1)) + '×',
+      speedMenuShow: !!st.speedMenu,
+      onSpeedMenu: () => this.setState(s => ({ speedMenu: !s.speedMenu })),
+      speedOpts: [0.5, 1, 1.5, 2, 3].map(v => {
+        const cur = st.speedOv ?? this.props.simSpeed ?? 1;
+        const active = Math.abs(v - cur) < 0.01;
+        return {
+          label: v.toFixed(1) + '×',
+          bg: active ? 'var(--c-signal-tint)' : 'transparent',
+          color: active ? 'var(--c-signal)' : 'var(--tx-2)',
+          check: active ? '●' : '',
+          set: () => this.setState({ speedOv: v, speedMenu: false })
+        };
+      }),
       roster, alertsList, alertCount: String(alertsList.length).padStart(2, '0'), evTicks, floorBtns,
       parLabel: mayday && !st.ack ? 'PAR CHECK' : 'PAR 4/4',
       parBg: mayday && !st.ack ? 'var(--c-alert-tint)' : 'var(--c-ok-tint)',
@@ -725,8 +767,29 @@ class Component extends DCLogic {
       selShow, selTitle, selEyebrow, selColor, selRows, selNote, selNoteShow,
       closeSel: () => this.setState({ sel: null }),
       canvasRef: this.canvasRef, wrapRef: this.wrapRef,
-      onPD: (e) => { this.drag = { x: e.clientX, y: e.clientY, moved: false }; e.target.setPointerCapture(e.pointerId); },
+      onPD: (e) => {
+        e.target.setPointerCapture(e.pointerId);
+        this.ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        if (this.ptrs.size === 1) {
+          this.drag = { x: e.clientX, y: e.clientY, moved: false };
+        } else {
+          this.drag = null;
+          if (this.ptrs.size === 2) {
+            const [a, b] = [...this.ptrs.values()];
+            this.pinchD = Math.hypot(a.x - b.x, a.y - b.y);
+          }
+        }
+      },
       onPM: (e) => {
+        const p = this.ptrs.get(e.pointerId);
+        if (p) { p.x = e.clientX; p.y = e.clientY; }
+        if (this.ptrs.size === 2) {
+          const [a, b] = [...this.ptrs.values()];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (this.pinchD) this.zoom = Math.max(0.45, Math.min(3.5, this.zoom * (d / this.pinchD)));
+          this.pinchD = d;
+          return;
+        }
         if (!this.drag) return;
         const dx = e.clientX - this.drag.x;
         const dy2 = e.clientY - this.drag.y;
@@ -738,11 +801,16 @@ class Component extends DCLogic {
         }
       },
       onPU: (e) => {
-        const wasDrag = this.drag && this.drag.moved; this.drag = null;
-        if (wasDrag) return;
+        this.ptrs.delete(e.pointerId);
+        if (this.ptrs.size < 2) this.pinchD = null;
+        const wasDrag = this.drag && this.drag.moved;
+        const wasTap = this.drag && !this.drag.moved && this.ptrs.size === 0;
+        this.drag = null;
+        if (wasDrag || !wasTap) return;
         const h = this.hitTest(e);
         this.setState({ sel: h ? { type: h.type, id: h.id } : null });
-      }
+      },
+      onPC: (e) => { this.ptrs.delete(e.pointerId); this.pinchD = null; this.drag = null; }
     };
   }
 }

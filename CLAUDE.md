@@ -42,9 +42,10 @@ When the user updates `Firefighter Command Tablet Prototype/`:
    rename inside its files (comments, `FieldAIDesignSystemRemix` namespace,
    "FieldAI" wordmark string).
 
-The embed on the landing page scales a fixed 1280×800 iframe to container
-width — the prototype has `min-width:1080px`, so never shrink the iframe's
-intrinsic size.
+The prototype is responsive (as of Aug 2026): the landing page embeds it as
+a plain full-width iframe (`.demo-stage iframe` in site.css, height clamped
+480px–800px) with no scaling JS. When verifying, screenshot both a desktop
+width and a ~390px mobile width.
 
 ## Deployment gotchas
 
