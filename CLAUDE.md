@@ -7,16 +7,18 @@ deploys in ~1 minute.
 
 ## Layout
 
-- `index.html` — the whole landing page (nav, hero, prototype embed, stats,
-  capabilities, results, team, contact). Inline JS at the bottom handles the
-  prototype iframe scaling and click-to-play YouTube embeds.
+- `index.html` — the whole landing page, deliberately lean and customer-facing
+  (audience: fire department buyers). Headline + the live 3D prototype as the
+  hero, three one-line points (crew location, heat alerts, replay), one metrics
+  row, a Request-a-demo CTA, footer. No JS. Team, stats, how-it-works, videos,
+  and victim annotation were cut on purpose (Sep 2026) — don't re-add noise.
 - `assets/css/site.css` — all styles. Design tokens at the top mirror the
   prototype's design system; brand orange is `#ef5b0c` (`--c-signal`).
 - `assets/logos/` — full brand library (SVG marks + wordmarks in dark/light/
   orange, full lockups). The site references stable copies:
   `assets/logo-mark.svg`, `assets/wordmark-light.svg`, `assets/favicon.svg`.
-- `assets/img/` — page images, already web-compressed (JPEG q≈85, ≤1400px).
-  Compress any new image the same way (Pillow is available; no ImageMagick).
+- `assets/img/og.jpg` — social preview (crop of the hero screenshot). Compress
+  any new image as JPEG q≈85, ≤1400px (Pillow is available; no ImageMagick).
 - `prototype/` — the SERVED copy of the command-tablet demo (see below).
 - `Firefighter Command Tablet Prototype/` — gitignored SOURCE export from
   Claude Design. The user drops updates here and asks to "integrate".
@@ -43,9 +45,10 @@ When the user updates `Firefighter Command Tablet Prototype/`:
    "FieldAI" wordmark string).
 
 The prototype is responsive (as of Aug 2026): the landing page embeds it as
-a plain full-width iframe (`.demo-stage iframe` in site.css, height clamped
-480px–800px) with no scaling JS. When verifying, screenshot both a desktop
-width and a ~390px mobile width.
+the hero, a plain iframe filling the rest of the first screen (`.demo-stage`
+in site.css: flex-fill, 480–820px; 640px min on mobile), no scaling JS. When
+verifying, screenshot a desktop width and a ~390px mobile width — headless
+Chrome won't go below ~500px, so wrap the page in a 390px-wide iframe.
 
 ## Deployment gotchas
 
@@ -84,11 +87,13 @@ with `curl` (grep for a string unique to the change).
 
 - Never use anti-robot framing ("no robots to deploy") — robot platforms are
   on the company roadmap. Sell wearables as "no new workflow to learn".
-- The demo is a "proof of concept", not a "working prototype".
-- Hero reads "through smoke, through the dark" — not "through walls"
-  (through-wall claims are fine for the 915 MHz radio results, which are
-  factual).
-- Contact email on the site: `ajong@andrew.cmu.edu`.
+- The demo is a "proof of concept", not a "working prototype" (shown as the
+  tag on the demo frame).
+- Headline is "See through smoke. Command with clarity." — never "see
+  through the fire" or "through walls" (inaccurate; through-wall claims are
+  fine only for the 915 MHz radio results, which are factual). Subtitle says
+  "even in zero visibility" so it doesn't repeat "smoke".
+- Contact email on the site: `jerryhou@andrew.cmu.edu` (Request-a-demo mailto).
 
 ## Content sources
 
